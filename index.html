@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kali Linux Tools</title>
+<style>
+  :root {
+    --bg-base:     #1e1e1e;
+    --bg-surface:  #252525;
+    --bg-overlay:  #2e2e2e;
+    --bg-sidebar:  #131313;
+    --border:      #343436;
+    --text-primary:   #ffffff;
+    --text-secondary: #98989e;
+    --text-muted:     #68686e;
+    --blue:   #0a84ff;
+    --green:  #30d158;
+    --yellow: #ffd60a;
+    --red:    #ff453a;
+    --purple: #bf5af2;
+    --orange: #ff9f0a;
+    --font-mono: 'SF Mono', ui-monospace, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-size: 13px;
+    min-height: 100vh;
+  }
+
+  /* ── Header ── */
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(19,19,19,.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .logo-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--red);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+  .logo-text {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+  }
+  .logo-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+  }
+  .search-wrap {
+    flex: 1;
+    max-width: 420px;
+    position: relative;
+  }
+  .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 13px;
+    pointer-events: none;
+  }
+  .search {
+    width: 100%;
+    background: var(--bg-overlay);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 13px;
+    padding: 7px 10px 7px 30px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .search:focus { border-color: var(--blue); }
+  .search::placeholder { color: var(--text-muted); }
+  .count {
+    flex-shrink: 0;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    white-space: nowrap;
+  }
+  .count b { color: var(--green); }
+
+  /* ── Category pills ── */
+  .cats-wrap {
+    background: var(--bg-sidebar);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .cats-wrap::-webkit-scrollbar { display: none; }
+  .cats {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 6px;
+    padding: 10px 20px;
+    white-space: nowrap;
+  }
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 11px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--bg-overlay);
+    color: var(--text-secondary);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all .15s;
+    user-select: none;
+    flex-shrink: 0;
+  }
+  .pill:hover { border-color: var(--text-secondary); color: var(--text-primary); }
+  .pill.active { color: #fff; border-color: transparent; }
+  .pill .n {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    opacity: .7;
+  }
+
+  /* ── Grid ── */
+  .main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 20px 40px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+  }
+
+  /* ── Tool card ── */
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color .15s, background .15s;
+  }
+  .card:hover { background: var(--bg-overlay); border-color: #4a4a4e; }
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .card-name {
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+    word-break: break-all;
+  }
+  .cat-badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .card-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 18px;
+    flex: 1;
+  }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: var(--blue);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    align-self: flex-start;
+    opacity: .85;
+  }
+  .card-link:hover { opacity: 1; text-decoration: underline; }
+
+  /* ── Empty state ── */
+  .empty {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-muted);
+    grid-column: 1/-1;
+  }
+  .empty.show { display: block; }
+  .empty-icon { font-size: 36px; margin-bottom: 12px; }
+  .empty-title { font-size: 15px; color: var(--text-secondary); margin-bottom: 4px; }
+
+  /* ── Category colors ── */
+  .c-info      { background: rgba(10,132,255,.15); color: #4dabff; }
+  .c-vuln      { background: rgba(255,214,10,.13); color: #ffd60a; }
+  .c-web       { background: rgba(255,159,10,.15); color: #ff9f0a; }
+  .c-db        { background: rgba(191,90,242,.15); color: #d08cff; }
+  .c-pass      { background: rgba(255,69,58,.15);  color: #ff6b62; }
+  .c-wifi      { background: rgba(48,209,88,.15);  color: #30d158; }
+  .c-re        { background: rgba(255,159,10,.15); color: #ffb340; }
+  .c-exploit   { background: rgba(255,69,58,.18);  color: #ff453a; }
+  .c-sniff     { background: rgba(255,214,10,.13); color: #ffe566; }
+  .c-post      { background: rgba(191,90,242,.18); color: #bf5af2; }
+  .c-forensics { background: rgba(48,209,88,.13);  color: #4cd964; }
+  .c-report    { background: rgba(152,152,158,.12);color: #98989e; }
+  .c-social    { background: rgba(255,69,58,.13);  color: #ff9a94; }
+  .c-crypto    { background: rgba(191,90,242,.13); color: #e0a0ff; }
+  .c-hardware  { background: rgba(255,159,10,.18); color: #ffc55c; }
+  .c-osint     { background: rgba(10,132,255,.18); color: #66b8ff; }
+  .c-network   { background: rgba(48,209,88,.18);  color: #30d158; }
+
+  /* ── Mobile ── */
+  @media (max-width: 600px) {
+    .header-inner { flex-wrap: wrap; gap: 10px; }
+    .search-wrap  { max-width: 100%; order: 3; flex-basis: 100%; }
+    .count        { order: 2; }
+    .grid { grid-template-columns: 1fr; }
+    .main { padding: 14px 14px 40px; }
+    .cats { padding: 8px 14px; }
+  }
+  @media (max-width: 900px) {
+    .grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">⚔️</div>
+      <div>
+        <div class="logo-text">Kali Linux Tools</div>
+        <div class="logo-sub">reference</div>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search" id="search" type="text" placeholder="Search tools..." autocomplete="off" spellcheck="false">
+    </div>
+    <div class="count">showing <b id="cnt">0</b> tools</div>
+  </div>
+</header>
+
+<div class="cats-wrap">
+  <div class="cats" id="cats"></div>
+</div>
+
+<main class="main">
+  <div class="grid" id="grid">
+    <div class="empty" id="empty">
+      <div class="empty-icon">🔎</div>
+      <div class="empty-title">No tools found</div>
+      <div>Try a different search or category</div>
+    </div>
+  </div>
+</main>
+
+<script>
+const TOOLS = [
+  // ─── Information Gathering ────────────────────────────────────────────────
+  { name:"nmap",          cat:"Information Gathering", desc:"Network exploration and port scanner — discovers hosts, services, and OS fingerprints.", url:"https://nmap.org" },
+  { name:"masscan",       cat:"Information Gathering", desc:"Rapid TCP port scanner that sends SYN packets async — scans the entire internet in under 6 min.", url:"https://github.com/robertdavidgraham/masscan" },
+  { name:"netdiscover",   cat:"Information Gathering", desc:"Active/passive ARP recon tool for discovering live hosts on local networks.", url:"https://github.com/netdiscover-scanner/netdiscover" },
+  { name:"arp-scan",      cat:"Information Gathering", desc:"Sends ARP packets to discover and fingerprint all IP hosts on a local network.", url:"https://github.com/royhills/arp-scan" },
+  { name:"hping3",        cat:"Information Gathering", desc:"Sends custom ICMP/UDP/TCP packets — useful for firewall testing and OS fingerprinting.", url:"http://www.hping.org/" },
+  { name:"amass",         cat:"Information Gathering", desc:"In-depth DNS enumeration and attack surface mapping using OSINT and active recon.", url:"https://github.com/OWASP/Amass" },
+  { name:"theHarvester",  cat:"Information Gathering", desc:"Gathers emails, subdomains, hosts, employee names, and open ports from public sources.", url:"https://github.com/laramies/theHarvester" },
+  { name:"recon-ng",      cat:"Information Gathering", desc:"Web reconnaissance framework with modular, database-integrated OSINT gathering.", url:"https://github.com/lanmaster53/recon-ng" },
+  { name:"maltego",       cat:"Information Gathering", desc:"Visual link analysis tool for mapping relationships between people, domains, IPs, and organisations.", url:"https://www.maltego.com" },
+  { name:"spiderfoot",    cat:"Information Gathering", desc:"Automates OSINT collection across hundreds of sources for IP, domain, email, and username targets.", url:"https://www.spiderfoot.net" },
+  { name:"subfinder",     cat:"Information Gathering", desc:"Passive subdomain discovery tool querying 40+ online sources.", url:"https://github.com/projectdiscovery/subfinder" },
+  { name:"dnsenum",       cat:"Information Gathering", desc:"Enumerates DNS records of a domain and discovers non-contiguous IP blocks.", url:"https://github.com/SparrowOchon/dnsenum2" },
+  { name:"dnsrecon",      cat:"Information Gathering", desc:"DNS recon supporting zone transfers, record enumeration, and subdomain brute forcing.", url:"https://github.com/darkoperator/dnsrecon" },
+  { name:"dnsmap",        cat:"Information Gathering", desc:"DNS subdomain brute-forcer using built-in or custom wordlists.", url:"https://github.com/resurrecting-open-source-projects/dnsmap" },
+  { name:"dmitry",        cat:"Information Gathering", desc:"Deep recon tool — whois, subdomain discovery, email search, and TCP port scans.", url:"https://mor-pah.net/software/dmitry-deepmagic-information-gathering-tool/" },
+  { name:"enum4linux",    cat:"Information Gathering", desc:"Enumerates users, shares, password policies from Windows/Samba via SMB.", url:"https://labs.portcullis.co.uk/tools/enum4linux/" },
+  { name:"enum4linux-ng", cat:"Information Gathering", desc:"Next-gen enum4linux with LDAP support and improved AD enumeration output.", url:"https://www.kali.org/tools/enum4linux-ng/" },
+  { name:"eyewitness",    cat:"Information Gathering", desc:"Captures screenshots of websites and identifies default credentials and server headers.", url:"https://www.christophertruncer.com/eyewitness-triage-tool/" },
+  { name:"sherlock",      cat:"Information Gathering", desc:"Finds accounts registered under a username across 300+ social networks.", url:"https://github.com/sherlock-project/sherlock" },
+  { name:"metagoofil",    cat:"Information Gathering", desc:"Extracts metadata from public documents (PDFs, DOCX) found via Google for a target domain.", url:"https://github.com/opsdisk/metagoofil" },
+  { name:"whatweb",       cat:"Information Gathering", desc:"Web scanner that fingerprints 900+ technologies including CMS, frameworks, and server software.", url:"https://github.com/urbanadventurer/WhatWeb" },
+  { name:"wpscan",        cat:"Information Gathering", desc:"Black box WordPress scanner for plugins, themes, users, and known CVEs.", url:"https://wpscan.com/wordpress-security-scanner" },
+  { name:"nikto",         cat:"Information Gathering", desc:"Web server scanner checking for dangerous files and 6700+ known vulnerabilities.", url:"https://github.com/sullo/nikto" },
+  { name:"nuclei",        cat:"Information Gathering", desc:"Fast template-based vulnerability scanner using YAML DSL across multiple protocols.", url:"https://github.com/projectdiscovery/nuclei" },
+  { name:"sslscan",       cat:"Information Gathering", desc:"Tests SSL/TLS services for cipher suites, protocol versions, and certificate details.", url:"https://github.com/rbsec/sslscan" },
+  { name:"sslyze",        cat:"Information Gathering", desc:"Fast TLS/SSL config analyser that reports on weaknesses and misconfigurations.", url:"https://github.com/nabla-c0d3/sslyze" },
+  { name:"testssl.sh",    cat:"Information Gathering", desc:"CLI tool for evaluating TLS cipher support and cryptographic weaknesses on any port.", url:"https://testssl.sh/" },
+  { name:"assetfinder",   cat:"Information Gathering", desc:"Finds domains and subdomains related to a given domain via online data sources.", url:"https://www.kali.org/tools/assetfinder/" },
+  { name:"finalrecon",    cat:"Information Gathering", desc:"All-in-one web recon covering WHOIS, DNS, headers, SSL, sitemap, and social links.", url:"https://www.kali.org/tools/finalrecon/" },
+  { name:"autorecon",     cat:"Information Gathering", desc:"Multi-threaded recon that auto-triggers tools based on discovered open ports.", url:"https://www.kali.org/tools/autorecon/" },
+  { name:"altdns",        cat:"Information Gathering", desc:"DNS subdomain permutation tool that generates mutations of known subdomains.", url:"https://www.kali.org/tools/altdns/" },
+  { name:"holehe",        cat:"Information Gathering", desc:"Checks whether an email address is registered on 120+ websites via password recovery.", url:"https://www.kali.org/tools/holehe/" },
+  { name:"cloud-enum",    cat:"Information Gathering", desc:"Enumerates public resources across AWS, Azure, and GCP for a given keyword/domain.", url:"https://www.kali.org/tools/cloud-enum/" },
+  { name:"gitleaks",      cat:"Information Gathering", desc:"Detects hardcoded secrets like API keys and tokens in Git repositories.", url:"https://github.com/gitleaks/gitleaks" },
+  { name:"trufflehog",    cat:"Information Gathering", desc:"Searches Git history for accidentally committed secrets and credentials.", url:"https://github.com/trufflesecurity/truffleHog" },
+  { name:"netcat",        cat:"Information Gathering", desc:"Swiss-army network utility for TCP/UDP connections — port scanning, banners, file transfer.", url:"http://www.stearns.org/nc/" },
+
+  // ─── Vulnerability Analysis ───────────────────────────────────────────────
+  { name:"gvm",                  cat:"Vulnerability Analysis", desc:"Greenbone Vulnerability Manager — modular network security auditing suite.", url:"https://www.greenbone.net/" },
+  { name:"zaproxy",              cat:"Vulnerability Analysis", desc:"OWASP Zed Attack Proxy — integrated web app vulnerability scanner.", url:"https://github.com/zaproxy/zaproxy" },
+  { name:"yersinia",             cat:"Vulnerability Analysis", desc:"Layer 2 network attack framework targeting STP, CDP, DTP, DHCP, HSRP, and VLANs.", url:"https://github.com/tomac/yersinia" },
+  { name:"cisco-auditing-tool",  cat:"Vulnerability Analysis", desc:"Audits Cisco routers for default passwords and IOS configuration weaknesses.", url:"https://www.kali.org/tools/cisco-auditing-tool/" },
+  { name:"cisco-torch",          cat:"Vulnerability Analysis", desc:"Mass scanning and fingerprinting tool targeting Cisco devices for known vulnerabilities.", url:"https://www.kali.org/tools/cisco-torch/" },
+  { name:"graudit",              cat:"Vulnerability Analysis", desc:"Grep-based static analysis tool that identifies security vulnerabilities in source code.", url:"https://github.com/wireghoul/graudit" },
+  { name:"aflplusplus",          cat:"Vulnerability Analysis", desc:"Instrumentation-driven fuzzer using genetic algorithms to discover crashes in binaries.", url:"https://github.com/AFLplusplus/AFLplusplus" },
+  { name:"bed",                  cat:"Vulnerability Analysis", desc:"Brute force exploit detector — checks daemons for buffer overflows and format strings.", url:"https://www.kali.org/tools/bed/" },
+
+  // ─── Web Application Analysis ─────────────────────────────────────────────
+  { name:"burpsuite",   cat:"Web Application Analysis", desc:"Integrated platform for web security testing — intercepts, modifies, and replays HTTP/S traffic.", url:"https://portswigger.net" },
+  { name:"sqlmap",      cat:"Web Application Analysis", desc:"Automated SQL injection tool that detects and exploits SQL vulnerabilities to extract data.", url:"https://sqlmap.org/" },
+  { name:"gobuster",    cat:"Web Application Analysis", desc:"High-performance brute-force tool for hidden directories, DNS subdomains, and vhosts.", url:"https://github.com/OJ/gobuster" },
+  { name:"dirb",        cat:"Web Application Analysis", desc:"Web content scanner that brute forces directories and files using dictionary attacks.", url:"https://dirb.sourceforge.net/" },
+  { name:"dirsearch",   cat:"Web Application Analysis", desc:"CLI brute-force tool for web server directories with multi-wordlist and extension support.", url:"https://github.com/maurosoria/dirsearch" },
+  { name:"feroxbuster", cat:"Web Application Analysis", desc:"Fast Rust-based recursive content discovery tool for forced browsing.", url:"https://github.com/epi052/feroxbuster" },
+  { name:"ffuf",        cat:"Web Application Analysis", desc:"Fast web fuzzer for directory discovery, vhost enumeration, and parameter fuzzing.", url:"https://github.com/ffuf/ffuf" },
+  { name:"commix",      cat:"Web Application Analysis", desc:"Automated OS command injection and exploitation tool for web applications.", url:"https://commixproject.com" },
+  { name:"dotdotpwn",   cat:"Web Application Analysis", desc:"Intelligent fuzzer for discovering directory traversal vulnerabilities in HTTP/FTP servers.", url:"https://dotdotpwn.blogspot.ca" },
+  { name:"arjun",       cat:"Web Application Analysis", desc:"HTTP parameter discovery suite that finds hidden GET/POST parameters in web endpoints.", url:"https://www.kali.org/tools/arjun/" },
+  { name:"wfuzz",       cat:"Web Application Analysis", desc:"Web application fuzzer for brute-forcing GET/POST parameters, headers, and authentication.", url:"https://www.kali.org/tools/wfuzz/" },
+  { name:"xsstrike",    cat:"Web Application Analysis", desc:"Advanced XSS detection suite with payload generation and DOM-based scanning.", url:"https://www.kali.org/tools/xsstrike/" },
+  { name:"caido",       cat:"Web Application Analysis", desc:"Lightweight web security toolkit with HTTP interceptor, replay, and workflow automation.", url:"https://www.kali.org/tools/caido/" },
+
+  // ─── Database Assessment ──────────────────────────────────────────────────
+  { name:"sqlninja",  cat:"Database Assessment", desc:"SQL Server injection and takeover tool for exploiting MSSQL to gain remote access.", url:"https://sqlninja.sourceforge.net/" },
+  { name:"oscanner",  cat:"Database Assessment", desc:"Oracle assessment framework for SID enumeration, password auditing, and privilege analysis.", url:"http://www.cqure.net/wp/tools/database/oscanner/" },
+  { name:"mdbtools",  cat:"Database Assessment", desc:"Utilities for reading, querying, and exporting data from Microsoft Access (MDB) files.", url:"https://github.com/mdbtools/mdbtools" },
+
+  // ─── Password Attacks ─────────────────────────────────────────────────────
+  { name:"hashcat",       cat:"Password Attacks", desc:"GPU-accelerated password recovery supporting 300+ hash types and five attack modes.", url:"https://hashcat.net/hashcat/" },
+  { name:"john",          cat:"Password Attacks", desc:"John the Ripper — brute force, dictionary, and hybrid attacks across many hash formats.", url:"https://github.com/magnumripper/JohnTheRipper" },
+  { name:"hydra",         cat:"Password Attacks", desc:"Parallelized login cracker for 50+ protocols including SSH, FTP, HTTP, and SMB.", url:"https://github.com/vanhauser-thc/thc-hydra" },
+  { name:"medusa",        cat:"Password Attacks", desc:"Fast parallel modular login brute-forcer for network services.", url:"http://foofus.net/?page_id=51" },
+  { name:"ncrack",        cat:"Password Attacks", desc:"High-speed network authentication cracker for large-scale security auditing.", url:"https://nmap.org/ncrack/" },
+  { name:"patator",       cat:"Password Attacks", desc:"Modular multi-purpose brute-forcer supporting FTP, SSH, HTTP, MySQL, and more.", url:"https://github.com/lanjelot/patator" },
+  { name:"crunch",        cat:"Password Attacks", desc:"Wordlist generator for custom character sets, lengths, and patterns.", url:"http://sourceforge.net/projects/crunch-wordlist/" },
+  { name:"cewl",          cat:"Password Attacks", desc:"Spiders a target website and extracts words for use in password attacks.", url:"https://github.com/digininja/CeWL" },
+  { name:"rainbowcrack",  cat:"Password Attacks", desc:"Hash cracker using rainbow tables for MD5, SHA1, and other hashes.", url:"https://project-rainbowcrack.com/index.htm" },
+  { name:"mimikatz",      cat:"Password Attacks", desc:"Windows credential dumper — extracts plaintext passwords, hashes, and Kerberos tickets from memory.", url:"https://blog.gentilkiwi.com/mimikatz" },
+  { name:"chntpw",        cat:"Password Attacks", desc:"NT SAM password reset utility — edits Windows password hashes without authentication.", url:"http://pogostick.net/~pnh/ntpasswd/" },
+  { name:"fcrackzip",     cat:"Password Attacks", desc:"Password cracker for ZIP archives via brute force or dictionary attacks.", url:"http://oldhome.schmorp.de/marc/fcrackzip.html" },
+  { name:"hashid",        cat:"Password Attacks", desc:"Identifies hash type by comparing against 220+ hash patterns.", url:"https://www.kali.org/tools/hashid/" },
+
+  // ─── Wireless Attacks ─────────────────────────────────────────────────────
+  { name:"aircrack-ng",    cat:"Wireless Attacks", desc:"802.11 WEP/WPA/WPA2 key cracking suite — capture, inject, and recover credentials.", url:"https://www.aircrack-ng.org/" },
+  { name:"kismet",         cat:"Wireless Attacks", desc:"Wireless network detector, sniffer, and IDS for Wi-Fi, Bluetooth, and SDR.", url:"https://www.kismetwireless.org/" },
+  { name:"wifite",         cat:"Wireless Attacks", desc:"Automated wireless auditor that attacks multiple WEP/WPA/WPS networks using aircrack-ng.", url:"https://github.com/kimocoder/wifite2" },
+  { name:"reaver",         cat:"Wireless Attacks", desc:"Brute-forces WPS PINs to recover WPA/WPA2 passphrases from routers.", url:"https://github.com/t6x/reaver-wps-fork-t6x" },
+  { name:"wifiphisher",    cat:"Wireless Attacks", desc:"Rogue AP tool that performs automated phishing attacks against Wi-Fi networks.", url:"https://github.com/sophron/wifiphisher" },
+  { name:"airgeddon",      cat:"Wireless Attacks", desc:"Menu-driven wireless network auditing bash script with extensive attack support.", url:"https://github.com/v1s1t0r1sh3r3/airgeddon" },
+  { name:"fluxion",        cat:"Wireless Attacks", desc:"Captive portal evil twin tool that captures WPA credentials via social engineering.", url:"https://github.com/FluxionNetwork/fluxion" },
+  { name:"cowpatty",       cat:"Wireless Attacks", desc:"Dictionary attack against WPA-PSK using captured four-way handshake packets.", url:"https://www.willhackforsushi.com/?page_id=50" },
+  { name:"hcxtools",       cat:"Wireless Attacks", desc:"Converts WLAN captures to hashcat/John formats for offline WPA cracking.", url:"https://github.com/ZerBea/hcxtools" },
+  { name:"eaphammer",      cat:"Wireless Attacks", desc:"Evil twin attacks for WPA2-Enterprise with RADIUS credential capture and KARMA.", url:"https://www.kali.org/tools/eaphammer/" },
+  { name:"bully",          cat:"Wireless Attacks", desc:"WPS brute force implementation in C for recovering WPA/WPA2 passphrases.", url:"https://www.kali.org/tools/bully/" },
+  { name:"macchanger",     cat:"Wireless Attacks", desc:"Changes and spoofs the MAC address of network interfaces to avoid tracking.", url:"https://github.com/alobbs/macchanger" },
+  { name:"hostapd-wpe",    cat:"Wireless Attacks", desc:"Modified hostapd that impersonates APs to capture EAP credentials from clients.", url:"https://www.kali.org/tools/hostapd-wpe/" },
+
+  // ─── Reverse Engineering ──────────────────────────────────────────────────
+  { name:"ghidra",           cat:"Reverse Engineering", desc:"NSA software reverse engineering framework with disassembler, decompiler, and scripting.", url:"https://github.com/NationalSecurityAgency/ghidra" },
+  { name:"radare2",          cat:"Reverse Engineering", desc:"Portable multi-architecture reverse engineering toolkit — disassembly, debug, binary analysis.", url:"https://www.radare.org" },
+  { name:"edb-debugger",     cat:"Reverse Engineering", desc:"Cross-platform graphical x86/x86-64 debugger and disassembler for ELF binaries.", url:"https://github.com/eteran/edb-debugger" },
+  { name:"gdb",              cat:"Reverse Engineering", desc:"GNU Debugger for C/C++ — breakpoints, watchpoints, backtraces, and live inspection.", url:"https://www.gnu.org/s/gdb/" },
+  { name:"binwalk",          cat:"Reverse Engineering", desc:"Firmware analysis tool — scans binary images to identify and extract embedded files.", url:"https://github.com/ReFirmLabs/binwalk" },
+  { name:"apktool",          cat:"Reverse Engineering", desc:"Reverse engineers Android APKs by decoding resources to near-original form.", url:"https://ibotpeaches.github.io/Apktool/" },
+  { name:"jadx",             cat:"Reverse Engineering", desc:"DEX to Java decompiler producing readable source code from Android APKs.", url:"https://github.com/skylot/jadx" },
+  { name:"dex2jar",          cat:"Reverse Engineering", desc:"Converts Android DEX bytecode to JAR format for analysis with Java decompilers.", url:"https://github.com/pxb1988/dex2jar/tree/2.x" },
+  { name:"yara",             cat:"Reverse Engineering", desc:"Pattern matching tool for malware identification using text or binary rules.", url:"https://virustotal.github.io/yara/" },
+  { name:"detect-it-easy",   cat:"Reverse Engineering", desc:"File type detector using signatures and heuristics — identifies packers, compilers, protectors.", url:"https://github.com/horsicq/Detect-It-Easy" },
+  { name:"pwndbg",           cat:"Reverse Engineering", desc:"GDB enhancement with PWNDBG plugin for exploit development and binary analysis.", url:"https://www.kali.org/tools/pwndbg/" },
+
+  // ─── Exploitation Tools ───────────────────────────────────────────────────
+  { name:"metasploit-framework", cat:"Exploitation Tools", desc:"World's most widely used penetration testing framework for developing and executing exploits.", url:"https://www.metasploit.com/" },
+  { name:"beef-xss",             cat:"Exploitation Tools", desc:"Browser Exploitation Framework — hooks browsers to execute command modules and client-side attacks.", url:"https://beefproject.com/" },
+  { name:"exploitdb",            cat:"Exploitation Tools", desc:"Searchable archive of public exploits and shellcodes (Exploit-DB) for vulnerability research.", url:"https://www.exploit-db.com/" },
+  { name:"routersploit",         cat:"Exploitation Tools", desc:"Open-source framework for exploiting embedded devices with scanning and payload modules.", url:"https://github.com/threat9/routersploit" },
+  { name:"caldera",              cat:"Exploitation Tools", desc:"MITRE adversary emulation platform automating red team ops using ATT&CK techniques.", url:"https://github.com/mitre/caldera" },
+  { name:"searchsploit",         cat:"Exploitation Tools", desc:"CLI search tool for the Exploit-DB archive — find local exploits offline.", url:"https://www.kali.org/tools/exploitdb/" },
+  { name:"armitage",             cat:"Exploitation Tools", desc:"GUI front-end for Metasploit — visualises targets, suggests exploits, enables team collab.", url:"https://github.com/r00t0v3rr1d3/armitage" },
+
+  // ─── Sniffing & Spoofing ──────────────────────────────────────────────────
+  { name:"wireshark",   cat:"Sniffing & Spoofing", desc:"Industry-standard packet analyser for capturing and inspecting hundreds of protocols.", url:"https://www.wireshark.org/" },
+  { name:"ettercap",    cat:"Sniffing & Spoofing", desc:"MITM attack suite with active/passive protocol dissection and traffic injection.", url:"https://ettercap.github.io/ettercap/" },
+  { name:"bettercap",   cat:"Sniffing & Spoofing", desc:"Framework for 802.11, BLE, and Ethernet MITM attacks and network reconnaissance.", url:"https://www.bettercap.org" },
+  { name:"responder",   cat:"Sniffing & Spoofing", desc:"LLMNR/NBT-NS/mDNS poisoner that captures NTLMv1/v2 hashes from Windows hosts.", url:"https://github.com/lgandx/Responder" },
+  { name:"scapy",       cat:"Sniffing & Spoofing", desc:"Python packet manipulation tool for crafting, sending, sniffing, and analysing network packets.", url:"https://scapy.net/" },
+  { name:"mitmproxy",   cat:"Sniffing & Spoofing", desc:"SSL-capable interactive MITM proxy for inspecting and modifying HTTP/HTTPS flows.", url:"https://mitmproxy.org" },
+  { name:"mitm6",       cat:"Sniffing & Spoofing", desc:"Exploits Windows IPv6 defaults to hijack DNS via malicious DHCPv6 responses.", url:"https://github.com/dirkjanm/mitm6" },
+  { name:"dnschef",     cat:"Sniffing & Spoofing", desc:"Configurable DNS proxy for intercepting and manipulating queries during MITM attacks.", url:"https://github.com/iphelix/dnschef" },
+  { name:"evilginx2",   cat:"Sniffing & Spoofing", desc:"Reverse proxy phishing framework capturing credentials and session cookies, bypassing 2FA.", url:"https://github.com/kgretzky/evilginx2" },
+  { name:"dsniff",      cat:"Sniffing & Spoofing", desc:"Collection of tools for sniffing cleartext passwords and performing MITM attacks.", url:"https://github.com/hackerschoice/dsniff" },
+  { name:"sslstrip",    cat:"Sniffing & Spoofing", desc:"HTTPS stripping proxy that downgrades SSL/TLS connections to plain HTTP.", url:"https://www.kali.org/tools/sslstrip/" },
+
+  // ─── Post Exploitation ────────────────────────────────────────────────────
+  { name:"crackmapexec",     cat:"Post Exploitation", desc:"Swiss army knife for Windows/AD pentesting — enumeration, credential dumping, remote exec via SMB.", url:"https://github.com/mpgn/CrackMapExec" },
+  { name:"netexec",          cat:"Post Exploitation", desc:"CrackMapExec successor for SMB, WinRM, MSSQL, LDAP, and more.", url:"https://github.com/Pennyw0rth/NetExec" },
+  { name:"evil-winrm",       cat:"Post Exploitation", desc:"WinRM shell for Windows servers with file transfer, script execution, and pass-the-hash.", url:"https://github.com/Hackplayers/evil-winrm" },
+  { name:"bloodhound",       cat:"Post Exploitation", desc:"Graph-based tool revealing attack paths and privilege escalation routes in Active Directory.", url:"https://github.com/SpecterOps/BloodHound" },
+  { name:"impacket-scripts", cat:"Post Exploitation", desc:"Python scripts for SMB, RPC, LDAP, and Kerberos — secretsdump, psexec, wmiexec, and more.", url:"https://www.kali.org/tools/impacket-scripts/" },
+  { name:"powershell-empire", cat:"Post Exploitation", desc:"PowerShell/Python C2 agent with encrypted communications and modular payloads.", url:"https://github.com/BC-SECURITY/Empire" },
+  { name:"proxychains-ng",   cat:"Post Exploitation", desc:"Forces TCP connections through SOCKS4/5 or HTTP proxies for network pivoting.", url:"https://github.com/rofl0r/proxychains-ng" },
+  { name:"chisel",           cat:"Post Exploitation", desc:"TCP/UDP tunnel over HTTP secured via SSH for pivoting and port forwarding.", url:"https://github.com/jpillora/chisel" },
+  { name:"ligolo-ng",        cat:"Post Exploitation", desc:"Advanced tunneling tool using TUN interface — no SOCKS required for routing.", url:"https://github.com/nicocha30/ligolo-ng" },
+  { name:"certipy-ad",       cat:"Post Exploitation", desc:"Offensive tool for enumerating and abusing Active Directory Certificate Services.", url:"https://github.com/ly4k/Certipy" },
+  { name:"peass-ng",         cat:"Post Exploitation", desc:"LinPEAS/WinPEAS — automatically searches local privilege escalation paths.", url:"https://github.com/carlospolop/PEASS-ng" },
+  { name:"veil",             cat:"Post Exploitation", desc:"Generates AV-evading Metasploit-compatible payloads using multiple encoding techniques.", url:"https://github.com/Veil-Framework/Veil" },
+  { name:"pspy",             cat:"Post Exploitation", desc:"Monitors running processes without root — reveals commands from other users and cron jobs.", url:"https://github.com/DominicBreuker/pspy" },
+
+  // ─── Forensics ────────────────────────────────────────────────────────────
+  { name:"autopsy",       cat:"Forensics", desc:"Digital forensics platform for examining Windows and UNIX file systems.", url:"https://www.sleuthkit.org/autopsy/" },
+  { name:"volatility3",   cat:"Forensics", desc:"Memory forensics framework for extracting digital artifacts from RAM dumps.", url:"https://github.com/volatilityfoundation/volatility3" },
+  { name:"bulk-extractor",cat:"Forensics", desc:"Scans disk images to extract emails, URLs, and phone numbers without mounting.", url:"https://github.com/simsong/bulk_extractor" },
+  { name:"foremost",      cat:"Forensics", desc:"File carving tool that recovers deleted files by searching for file headers and footers.", url:"https://sourceforge.net/projects/foremost/" },
+  { name:"dc3dd",         cat:"Forensics", desc:"Forensic-enhanced dd with on-the-fly hashing, error logging, and pattern wiping.", url:"https://sourceforge.net/projects/dc3dd/" },
+  { name:"chkrootkit",    cat:"Forensics", desc:"Rootkit scanner that detects 70+ known rootkits and signs of malware infection.", url:"https://www.chkrootkit.org/" },
+  { name:"steghide",      cat:"Forensics", desc:"Hides data inside JPEG, BMP, WAV, and AU files using least significant bit steganography.", url:"http://steghide.sourceforge.net/" },
+  { name:"stegcracker",   cat:"Forensics", desc:"Brute-forces passwords on steganographic files to uncover hidden data.", url:"https://github.com/Paradoxis/StegCracker" },
+  { name:"exiv2",         cat:"Forensics", desc:"Reads, writes, and edits EXIF, IPTC, and XMP metadata in image files.", url:"https://www.kali.org/tools/exiv2/" },
+  { name:"dumpzilla",     cat:"Forensics", desc:"Extracts forensic data from Firefox browser profiles.", url:"http://www.dumpzilla.org/" },
+  { name:"ddrescue",      cat:"Forensics", desc:"GNU data recovery tool for copying data from failing drives with advanced error handling.", url:"https://www.kali.org/tools/ddrescue/" },
+  { name:"extundelete",   cat:"Forensics", desc:"Undeletes files from ext3/ext4 partitions by examining filesystem journal entries.", url:"https://www.kali.org/tools/extundelete/" },
+
+  // ─── Reporting Tools ──────────────────────────────────────────────────────
+  { name:"dradis",      cat:"Reporting Tools", desc:"Web-based collaboration and reporting platform that aggregates scanner output for pentesters.", url:"https://dradis.com/ce/" },
+  { name:"cherrytree",  cat:"Reporting Tools", desc:"Hierarchical note-taking app with rich text and syntax highlighting — widely used for pentest notes.", url:"https://www.giuspen.net/cherrytree/" },
+  { name:"cutycapt",    cat:"Reporting Tools", desc:"CLI utility for capturing web page screenshots as PNG, PDF, or SVG for documentation.", url:"https://www.kali.org/tools/cutycapt/" },
+  { name:"faraday-cli", cat:"Reporting Tools", desc:"CLI for Faraday collaborative pentest platform — manages vulnerabilities and reports.", url:"https://www.kali.org/tools/faraday-cli/" },
+
+  // ─── Social Engineering ────────────────────────────────────────────────────
+  { name:"set",         cat:"Social Engineering", desc:"Social-Engineer Toolkit — spear-phishing, credential harvesting, and client-side attack framework.", url:"https://www.trustedsec.com/downloads/social-engineer-toolkit/" },
+  { name:"gophish",     cat:"Social Engineering", desc:"Open-source phishing framework for setting up and tracking phishing campaigns.", url:"https://getgophish.com/" },
+  { name:"evilginx2",   cat:"Social Engineering", desc:"MITM phishing framework capturing credentials and session cookies while bypassing 2FA.", url:"https://github.com/kgretzky/evilginx2" },
+
+  // ─── Crypto & Steganography ───────────────────────────────────────────────
+  { name:"stegosuite",      cat:"Crypto & Steganography", desc:"GUI steganography tool for hiding encrypted messages inside image files.", url:"https://codeberg.org/tob/stegosuite" },
+  { name:"outguess",        cat:"Crypto & Steganography", desc:"Inserts hidden information into redundant bits of JPEG images.", url:"https://github.com/resurrecting-open-source-projects/outguess" },
+  { name:"ccrypt",          cat:"Crypto & Steganography", desc:"Encrypts and decrypts files and streams using the Rijndael cipher.", url:"https://www.kali.org/tools/ccrypt/" },
+  { name:"bruteforce-luks", cat:"Crypto & Steganography", desc:"Brute-forces the passphrase of LUKS-encrypted volumes.", url:"https://www.kali.org/tools/bruteforce-luks/" },
+
+  // ─── Hardware Hacking ─────────────────────────────────────────────────────
+  { name:"proxmark3",        cat:"Hardware Hacking", desc:"Toolkit for interacting with RFID/NFC — reading, writing, sniffing, and emulating cards.", url:"https://github.com/RfidResearchGroup/proxmark3" },
+  { name:"gnuradio",         cat:"Hardware Hacking", desc:"Software-defined radio toolkit for building signal processing apps with RF hardware.", url:"https://www.gnuradio.org/" },
+  { name:"flashrom",         cat:"Hardware Hacking", desc:"Identifies, reads, writes, and erases flash chips on mainboards and network devices.", url:"https://www.kali.org/tools/flashrom/" },
+  { name:"firmware-mod-kit", cat:"Hardware Hacking", desc:"Extracts, modifies, and repacks embedded Linux firmware images.", url:"https://www.kali.org/tools/firmware-mod-kit/" },
+  { name:"binwalk",          cat:"Hardware Hacking", desc:"Scans and extracts embedded files and code from binary/firmware images.", url:"https://github.com/ReFirmLabs/binwalk" },
+]
+
+// ── Category metadata ──────────────────────────────────────────────────────
+const CAT_META = {
+  "Information Gathering":    { cls:"c-info",     icon:"🔍" },
+  "Vulnerability Analysis":   { cls:"c-vuln",     icon:"🛡️" },
+  "Web Application Analysis": { cls:"c-web",      icon:"🌐" },
+  "Database Assessment":      { cls:"c-db",       icon:"🗄️" },
+  "Password Attacks":         { cls:"c-pass",     icon:"🔑" },
+  "Wireless Attacks":         { cls:"c-wifi",     icon:"📡" },
+  "Reverse Engineering":      { cls:"c-re",       icon:"🔬" },
+  "Exploitation Tools":       { cls:"c-exploit",  icon:"💥" },
+  "Sniffing & Spoofing":      { cls:"c-sniff",    icon:"👁️" },
+  "Post Exploitation":        { cls:"c-post",     icon:"🏴" },
+  "Forensics":                { cls:"c-forensics",icon:"🧬" },
+  "Reporting Tools":          { cls:"c-report",   icon:"📋" },
+  "Social Engineering":       { cls:"c-social",   icon:"🎭" },
+  "Crypto & Steganography":   { cls:"c-crypto",   icon:"🔐" },
+  "Hardware Hacking":         { cls:"c-hardware", icon:"⚙️" },
+}
+
+// ── Deduplicate by name+cat ────────────────────────────────────────────────
+const seen = new Set()
+const tools = TOOLS.filter(t => {
+  const k = t.name + '|' + t.cat
+  if (seen.has(k)) return false
+  seen.add(k); return true
+})
+
+// ── State ──────────────────────────────────────────────────────────────────
+let activeCat = 'All'
+let query = ''
+
+// ── Build category list ────────────────────────────────────────────────────
+const cats = ['All', ...Object.keys(CAT_META)]
+const catsEl = document.getElementById('cats')
+cats.forEach(c => {
+  const cnt = c === 'All' ? tools.length : tools.filter(t => t.cat === c).length
+  const btn = document.createElement('button')
+  btn.className = 'pill' + (c === 'All' ? ' active' : '')
+  btn.dataset.cat = c
+  const m = CAT_META[c]
+  btn.innerHTML = `${m ? m.icon + ' ' : ''}${c} <span class="n">${cnt}</span>`
+  if (c !== 'All') btn.style.setProperty('--pill-active-bg', 'var(--bg-overlay)')
+  btn.addEventListener('click', () => {
+    activeCat = c
+    document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'))
+    btn.classList.add('active')
+    render()
+    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+  })
+  catsEl.appendChild(btn)
+})
+
+// color active pill based on category
+function updatePillColors() {
+  document.querySelectorAll('.pill').forEach(p => {
+    const c = p.dataset.cat
+    const m = CAT_META[c]
+    p.classList.remove(...Object.values(CAT_META).map(x => x.cls))
+    if (p.classList.contains('active') && m) p.classList.add(m.cls)
+  })
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render() {
+  updatePillColors()
+  const q = query.toLowerCase()
+  const filtered = tools.filter(t => {
+    const catMatch = activeCat === 'All' || t.cat === activeCat
+    const qMatch = !q || t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || t.cat.toLowerCase().includes(q)
+    return catMatch && qMatch
+  })
+
+  const grid = document.getElementById('grid')
+  const empty = document.getElementById('empty')
+  document.getElementById('cnt').textContent = filtered.length
+
+  // remove old cards
+  grid.querySelectorAll('.card').forEach(c => c.remove())
+
+  if (!filtered.length) {
+    empty.classList.add('show')
+    return
+  }
+  empty.classList.remove('show')
+
+  filtered.forEach(t => {
+    const m = CAT_META[t.cat] || { cls:'c-info', icon:'🔧' }
+    const card = document.createElement('div')
+    card.className = 'card'
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-name">${t.name}</div>
+        <span class="cat-badge ${m.cls}">${m.icon} ${t.cat}</span>
+      </div>
+      <div class="card-desc">${t.desc}</div>
+      <a class="card-link" href="${t.url}" target="_blank" rel="noopener">↗ ${new URL(t.url).hostname}</a>
+    `
+    grid.appendChild(card)
+  })
+}
+
+// ── Search ─────────────────────────────────────────────────────────────────
+document.getElementById('search').addEventListener('input', e => {
+  query = e.target.value
+  render()
+})
+
+render()
+</script>
+</body>
+</html>
