@@ -1066,6 +1066,88 @@ const TOOLS = [
   { name:"prowler",       cat:"Vulnerability Analysis", desc:"Инструмент безопасности AWS/Azure/GCP: проверяет соответствие CIS Benchmarks и best practices.", url:"https://github.com/prowler-cloud/prowler" },
   { name:"pacu",          cat:"Vulnerability Analysis", desc:"AWS-фреймворк эксплуатации: перечисление IAM, privilege escalation в облачных окружениях.", url:"https://github.com/RhinoSecurityLabs/pacu" },
   { name:"scoutsuite",    cat:"Vulnerability Analysis", desc:"Многооблачный аудит безопасности AWS, Azure, GCP: 100+ правил проверки конфигурации.", url:"https://github.com/nccgroup/ScoutSuite" },
+
+  // ─── Information Gathering (ещё специализированные) ───────────────────────
+  { name:"fierce",        cat:"Information Gathering", desc:"DNS-сканер для обнаружения несмежных IP-пространств и хостов через zone transfer и перебор.", url:"https://github.com/mschwager/fierce" },
+  { name:"maltego-teeth", cat:"Information Gathering", desc:"Kali-версия Maltego с pre-loaded трансформами для OSINT и визуализации связей.", url:"https://www.paterva.com/web7/downloads.php" },
+  { name:"recon-spider",  cat:"Information Gathering", desc:"Продвинутый OSINT-краулер: собирает email, ссылки, документы и данные с сайта-цели.", url:"https://github.com/bhavsec/reconspider" },
+  { name:"apt2",          cat:"Information Gathering", desc:"Automated Penetration Testing Toolkit: запускает инструменты разведки и анализирует результаты.", url:"https://github.com/MooseDojo/apt2" },
+  { name:"snmpenum",      cat:"Information Gathering", desc:"Перечисляет SNMP MIB-данные: пользователи, интерфейсы, маршруты, программы для разведки.", url:"https://www.kali.org/tools/snmpenum/" },
+  { name:"weevely",       cat:"Information Gathering", desc:"PHP-шелл с обфускацией трафика под HTTP для скрытого управления скомпрометированным сервером.", url:"https://github.com/epinna/weevely3" },
+  { name:"striker",       cat:"Information Gathering", desc:"Наступательная OSINT-разведка: CMS, WAF, заголовки, поддомены, whois, geo за один запуск.", url:"https://github.com/UltimateHackers/Striker" },
+
+  // ─── Web Application Analysis (специализированные) ───────────────────────
+  { name:"websploit",     cat:"Web Application Analysis", desc:"Фреймворк для автоматизации атак на веб: XSS, SQLi, LFI, RFI и MITM-атаки.", url:"https://sourceforge.net/projects/websploit/" },
+  { name:"plecost",       cat:"Web Application Analysis", desc:"WordPress vulnerability finder: перечисляет плагины и ищет уязвимые версии через CVE.", url:"https://github.com/iniqua/plecost" },
+  { name:"wig",           cat:"Web Application Analysis", desc:"Идентифицирует CMS и технологии сайта через кеш, cookie, метатеги и пути.", url:"https://github.com/jekyc/wig" },
+  { name:"droopescan",    cat:"Web Application Analysis", desc:"Сканирует Drupal, SilverStripe, WordPress на уязвимые плагины и темы.", url:"https://github.com/SamJoan/droopescan" },
+  { name:"vbscan",        cat:"Web Application Analysis", desc:"OWASP-сканер уязвимостей vBulletin: перечисляет версию и известные CVE форума.", url:"https://github.com/rezasp/vbscan" },
+  { name:"joomlascan",    cat:"Web Application Analysis", desc:"Перечисляет компоненты, модули и шаблоны Joomla для поиска уязвимых расширений.", url:"https://github.com/drego85/JoomlaScan" },
+  { name:"plecost",       cat:"Web Application Analysis", desc:"Fingerprint WordPress плагинов и их версий для поиска уязвимостей.", url:"https://github.com/iniqua/plecost" },
+  { name:"htcap",         cat:"Web Application Analysis", desc:"Краулер веб-приложений с XHR-перехватом для анализа AJAX-запросов.", url:"https://github.com/segment-srl/htcap" },
+
+  // ─── Sniffing & Spoofing (дополнительные) ────────────────────────────────
+  { name:"sslstrip",      cat:"Sniffing & Spoofing", desc:"Прозрачный HTTP-прокси для MITM-атак: понижает HTTPS до HTTP для перехвата трафика.", url:"https://moxie.org/software/sslstrip/" },
+  { name:"hamster",       cat:"Sniffing & Spoofing", desc:"Прокси для захвата сессий: перехватывает cookies из трафика для session hijacking.", url:"https://www.kali.org/tools/hamster-sidejack/" },
+  { name:"ferret",        cat:"Sniffing & Spoofing", desc:"Захватывает cookies и сессионные токены из неzашифрованного трафика.", url:"https://www.kali.org/tools/hamster-sidejack/" },
+  { name:"sshdump",       cat:"Sniffing & Spoofing", desc:"Extcap-плагин Wireshark: захватывает трафик на удалённых хостах через SSH туннель.", url:"https://www.kali.org/tools/sshdump/" },
+
+  // ─── Exploitation Tools (ещё специализированные) ─────────────────────────
+  { name:"msfvenom",      cat:"Exploitation Tools", desc:"Генератор пейлоадов Metasploit: создаёт шеллкоды под любую платформу в десятках форматов.", url:"https://github.com/rapid7/metasploit-framework" },
+  { name:"metasploit-framework", cat:"Exploitation Tools", desc:"Пентест-фреймворк: эксплойты, пейлоады, вспомогательные модули, постэксплуатация.", url:"https://www.metasploit.com/" },
+
+  // ─── Password Attacks (ещё) ────────────────────────────────────────────────
+  { name:"rainbowcrack",  cat:"Password Attacks", desc:"Взлом хешей по радужным таблицам с time-memory trade-off для LM, NTLM, MD5, SHA1.", url:"http://project-rainbowcrack.com/" },
+  { name:"pack2",         cat:"Password Attacks", desc:"Улучшенный PACK для анализа политик паролей и генерации масок hashcat.", url:"https://www.kali.org/tools/pack2/" },
+
+  // ─── Post Exploitation (туннелирование и пивотинг) ───────────────────────
+  { name:"frp",           cat:"Post Exploitation", desc:"Быстрый реверс-прокси: туннелирует внутренние сервисы наружу через публичный сервер.", url:"https://github.com/fatedier/frp" },
+  { name:"3proxy",        cat:"Post Exploitation", desc:"Лёгкий прокси-сервер: HTTP, SOCKS4/5, POP3P с авторизацией для построения прокси-цепочек.", url:"https://github.com/3proxy/3proxy" },
+  { name:"rpivot",        cat:"Post Exploitation", desc:"Туннелирование через SOCKS4 в обратную сторону: пивотинг из внутренней сети наружу.", url:"https://github.com/klsecservices/rpivot" },
+  { name:"invoke-obfuscation",cat:"Post Exploitation", desc:"PowerShell obfuscator: запутывает скрипты для обхода AMSI и логирования команд.", url:"https://github.com/danielbohannon/Invoke-Obfuscation" },
+  { name:"donut",         cat:"Post Exploitation", desc:"Генерирует позиционно-независимый шеллкод из .NET, PowerShell, VBScript и JScript.", url:"https://github.com/TheWover/donut" },
+
+  // ─── Reverse Engineering (ещё инструменты) ────────────────────────────────
+  { name:"checksec",      cat:"Reverse Engineering", desc:"Проверяет защитные механизмы бинарников: RELRO, Stack Canary, NX, PIE, ASLR.", url:"https://github.com/slimm609/checksec.sh" },
+  { name:"patchelf",      cat:"Reverse Engineering", desc:"Изменяет ELF-заголовки: RPATH, интерпретатор, soname для отладки и эксплойт-разработки.", url:"https://github.com/NixOS/patchelf" },
+  { name:"boomerang",     cat:"Reverse Engineering", desc:"Декомпилятор бинарного кода в C: структурный анализ, восстановление типов данных.", url:"http://boomerang.sourceforge.net/" },
+  { name:"compiler-explorer",cat:"Reverse Engineering", desc:"Онлайн-компилятор ассемблера: показывает вывод GCC, Clang для разных платформ.", url:"https://godbolt.org/" },
+
+  // ─── Forensics (дополнительные) ────────────────────────────────────────────
+  { name:"swap-digger",   cat:"Forensics", desc:"Автоматически извлекает пароли и URL из Linux swap-разделов для форензического анализа.", url:"https://github.com/sevagas/swap_digger" },
+  { name:"pdf2john",      cat:"Forensics", desc:"Конвертирует зашифрованные PDF в хеш-формат john для офлайн-взлома паролей.", url:"https://github.com/openwall/john" },
+  { name:"zip2john",      cat:"Forensics", desc:"Извлекает хеши из ZIP-архивов для последующего взлома через john или hashcat.", url:"https://github.com/openwall/john" },
+  { name:"office2john",   cat:"Forensics", desc:"Конвертирует MS Office-документы с паролями в хеши для взлома через john.", url:"https://github.com/openwall/john" },
+  { name:"volatility",    cat:"Forensics", desc:"Фреймворк анализа дампов оперативной памяти: процессы, сетевые соединения, артефакты ОС.", url:"https://www.volatilityfoundation.org/" },
+
+  // ─── Vulnerability Analysis (специализированные) ──────────────────────────
+  { name:"openscap",      cat:"Vulnerability Analysis", desc:"Проверяет соответствие систем стандартам безопасности SCAP, OVAL, CVE.", url:"https://www.open-scap.org/" },
+  { name:"nipper-ng",     cat:"Vulnerability Analysis", desc:"Анализирует конфигурации сетевого оборудования Cisco, Juniper, CheckPoint на уязвимости.", url:"https://github.com/arpitn30/nipper-ng" },
+  { name:"bed",           cat:"Vulnerability Analysis", desc:"Brute Efort Detector: посылает некорректные строки демонам для выявления переполнений и краша.", url:"https://www.kali.org/tools/bed/" },
+
+  // ─── Hardware Hacking (специализированные) ────────────────────────────────
+  { name:"rtl-433",       cat:"Hardware Hacking", desc:"Декодирует сигналы устройств на 433 МГц: датчики температуры, счётчики, брелоки.", url:"https://github.com/merbanan/rtl_433" },
+  { name:"baudrate",      cat:"Hardware Hacking", desc:"Автоматически определяет скорость UART-порта встроенного устройства.", url:"https://github.com/devttys0/baudrate" },
+  { name:"jtagenum",      cat:"Hardware Hacking", desc:"Перебирает JTAG-пины на платах для обнаружения отладочных интерфейсов.", url:"https://github.com/cyphunk/JTAGenum" },
+  { name:"jtagulator",    cat:"Hardware Hacking", desc:"Аппаратный инструмент для поиска JTAG-пинов и UART на встроенных устройствах.", url:"http://www.grandideastudio.com/jtagulator/" },
+
+  // ─── Crypto & Steganography (специализированные) ─────────────────────────
+  { name:"xortool",       cat:"Crypto & Steganography", desc:"Анализирует XOR-шифрование: угадывает длину ключа и сам ключ из зашифрованного текста.", url:"https://github.com/hellman/xortool" },
+  { name:"featherduster", cat:"Crypto & Steganography", desc:"Автоматически взламывает классические шифры и слабые современные конфигурации.", url:"https://github.com/nccgroup/featherduster" },
+  { name:"pkcrack",       cat:"Crypto & Steganography", desc:"Взламывает ZIP-шифрование Known-Plaintext атакой: восстанавливает ключи из открытого файла.", url:"https://www.unix-ag.uni-kl.de/~conrad/krypto/pkcrack.html" },
+  { name:"rsatool",       cat:"Crypto & Steganography", desc:"Вычисляет RSA-параметры и генерирует приватный ключ при известных p и q.", url:"https://github.com/ius/rsatool" },
+
+  // ─── SDR (ещё) ────────────────────────────────────────────────────────────
+  { name:"osmocom",       cat:"SDR", desc:"Набор open-source утилит для GSM-сетей: захват трафика, декодирование, анализ.", url:"https://osmocom.org/" },
+  { name:"gr-osmosdr",    cat:"SDR", desc:"GNU Radio source/sink блок для RTL-SDR, HackRF, USRP и других SDR-устройств.", url:"https://osmocom.org/projects/gr-osmosdr/wiki" },
+
+  // ─── Fuzzing Tools (ещё) ─────────────────────────────────────────────────
+  { name:"libfuzzer",     cat:"Fuzzing Tools", desc:"Встроенный в LLVM coverage-guided фаззер для библиотек с API-тестированием.", url:"https://llvm.org/docs/LibFuzzer.html" },
+  { name:"syzkaller",     cat:"Fuzzing Tools", desc:"Фаззер системных вызовов Linux: находит уязвимости ядра через генерацию случайных syscall-последовательностей.", url:"https://github.com/google/syzkaller" },
+
+  // ─── Protection Tools (специализированные) ───────────────────────────────
+  { name:"sslyze",        cat:"Protection Tools", desc:"Проверяет конфигурацию SSL/TLS серверов на слабые шифры и уязвимости для hardening.", url:"https://github.com/nabla-c0d3/sslyze" },
+  { name:"openvas",       cat:"Protection Tools", desc:"OpenVAS: открытый сканер уязвимостей с базой 50000+ проверок для аудита инфраструктуры.", url:"https://www.openvas.org/" },
 ]
 
 // ── Категории и цвета (классы из NetScout) ────────────────────────────────
