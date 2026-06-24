@@ -655,6 +655,417 @@ const TOOLS = [
   { name:"cryptsetup",   cat:"Protection Tools", desc:"Шифрование дисков через LUKS и dm-crypt. Стандарт полнодискового шифрования в Linux.", url:"https://gitlab.com/cryptsetup/cryptsetup" },
   { name:"cryptsetup-nuke-password", cat:"Protection Tools", desc:"Добавляет Nuke-пароль к LUKS: один ввод спецпароля безвозвратно стирает заголовок шифрования.", url:"https://www.kali.org/tools/cryptsetup-nuke-password/" },
   { name:"fwbuilder",    cat:"Protection Tools", desc:"GUI для управления политиками файрволов iptables, pf, Cisco: визуально строит правила и деплоит.", url:"http://www.fwbuilder.org/" },
+
+  // ─── Information Gathering (ещё) ──────────────────────────────────────────
+  { name:"acccheck",      cat:"Information Gathering", desc:"Аудит паролей Windows через протокол SMB/CIFS по словарным атакам.", url:"https://www.kali.org/tools/acccheck/" },
+  { name:"amap",          cat:"Information Gathering", desc:"Определяет сервисы на портах независимо от номера порта, анализируя ответы приложений.", url:"https://www.kali.org/tools/amap/" },
+  { name:"cdpsnarf",      cat:"Information Gathering", desc:"Перехватывает пакеты Cisco Discovery Protocol для разведки топологии сети.", url:"https://www.kali.org/tools/cdpsnarf/" },
+  { name:"dnstracer",     cat:"Information Gathering", desc:"Прослеживает цепочку DNS-запросов от локального резолвера до авторитативного сервера.", url:"https://www.kali.org/tools/dnstracer/" },
+  { name:"dnswalk",       cat:"Information Gathering", desc:"Отладчик DNS-зон: проверяет корректность записей и выявляет несоответствия в конфигурации.", url:"https://www.kali.org/tools/dnswalk/" },
+  { name:"fragroute",     cat:"Information Gathering", desc:"Перехватывает и переписывает исходящий трафик: фрагментация, задержки, дублирование пакетов.", url:"https://www.kali.org/tools/fragroute/" },
+  { name:"golismero",     cat:"Information Gathering", desc:"Фреймворк веб-разведки и тестирования безопасности с модульной архитектурой.", url:"http://www.golismero.com" },
+  { name:"intrace",       cat:"Information Gathering", desc:"Трассировка маршрутов внутри существующих TCP-соединений, обходит файрволы.", url:"https://www.kali.org/tools/intrace/" },
+  { name:"irpas",         cat:"Information Gathering", desc:"Набор инструментов атак на маршрутизирующие протоколы: IGRP, EIGRP, OSPF, RIP.", url:"https://www.kali.org/tools/irpas/" },
+  { name:"ismtp",         cat:"Information Gathering", desc:"Тестирует SMTP-серверы на STARTTLS-инъекции и перечисляет пользователей.", url:"https://www.kali.org/tools/ismtp/" },
+  { name:"netmask",       cat:"Information Gathering", desc:"Вычисляет маски подсетей, диапазоны адресов и CIDR-нотацию для сетевого планирования.", url:"https://www.kali.org/tools/netmask/" },
+  { name:"parsero",       cat:"Information Gathering", desc:"Читает robots.txt и проверяет, действительно ли указанные пути скрыты от индексации.", url:"https://www.kali.org/tools/parsero/" },
+  { name:"qsslcaudit",    cat:"Information Gathering", desc:"Тестирует клиентские SSL/TLS-реализации на уязвимости: mitm, слабые шифры, самоподписанные сертификаты.", url:"https://www.kali.org/tools/qsslcaudit/" },
+  { name:"tlssled",       cat:"Information Gathering", desc:"Оценивает качество TLS/SSL-реализации сервера: шифры, версии протоколов, сертификаты.", url:"https://www.kali.org/tools/tlssled/" },
+  { name:"snmpenum",      cat:"Information Gathering", desc:"Перечисляет SNMP-данные устройств: ОС, интерфейсы, маршруты, пользователи.", url:"https://www.kali.org/tools/snmpenum/" },
+  { name:"fragrouter",    cat:"Information Gathering", desc:"Маршрутизирует трафик с IP-фрагментацией для обхода систем обнаружения вторжений.", url:"https://www.kali.org/tools/fragrouter/" },
+  { name:"ftester",       cat:"Information Gathering", desc:"Тестирует правила файрволов и IDS-систем инъекцией пакетов по заданным правилам.", url:"https://www.kali.org/tools/ftester/" },
+
+  // ─── Web Application Analysis (ещё) ──────────────────────────────────────
+  { name:"grabber",       cat:"Web Application Analysis", desc:"Сканер уязвимостей веб-приложений: XSS, SQL-инъекции, AJAX, JS-анализ.", url:"https://www.kali.org/tools/grabber/" },
+  { name:"owtf",          cat:"Web Application Analysis", desc:"OWASP Testing Framework: автоматизирует тестирование по методологии OWASP с минимальным трафиком.", url:"https://www.kali.org/tools/owtf/" },
+  { name:"vega",          cat:"Web Application Analysis", desc:"GUI-сканер уязвимостей веб-приложений с перехватывающим прокси и автоматическими тестами.", url:"https://subgraph.com/vega/" },
+  { name:"w3af",          cat:"Web Application Analysis", desc:"Фреймворк атаки и аудита веб-приложений: 200+ плагинов для обнаружения и эксплуатации уязвимостей.", url:"http://w3af.org" },
+  { name:"xsscrapy",      cat:"Web Application Analysis", desc:"Паук-сканер XSS-уязвимостей: рекурсивно обходит сайт и проверяет каждый параметр.", url:"https://github.com/DanMcInerney/xsscrapy" },
+  { name:"jexboss",       cat:"Web Application Analysis", desc:"Эксплуатирует уязвимости в JBoss AS, Jenkins, Struts2, Tomcat через дефолтные интерфейсы.", url:"https://github.com/joaomatosf/jexboss" },
+  { name:"clusterd",      cat:"Web Application Analysis", desc:"Автоматически атакует серверы приложений: JBoss, ColdFusion, WebLogic, Tomcat.", url:"https://github.com/hatRiot/clusterd" },
+  { name:"arachni",       cat:"Web Application Analysis", desc:"Высокопроизводительный сканер уязвимостей веб-приложений с REST API и веб-интерфейсом.", url:"https://www.arachni-scanner.com" },
+
+  // ─── Database Assessment (ещё) ────────────────────────────────────────────
+  { name:"bbqsql",        cat:"Database Assessment", desc:"Автоматизирует эксплуатацию слепых SQL-инъекций с бинарным и символьным поиском.", url:"https://www.kali.org/tools/bbqsql/" },
+  { name:"odat",          cat:"Database Assessment", desc:"Oracle Database Attacking Tool: перечисление, эксплуатация и постэксплуатация Oracle DB.", url:"https://github.com/quentinhardy/odat" },
+  { name:"sidguesser",    cat:"Database Assessment", desc:"Перебирает Oracle SID по словарю для обнаружения имён экземпляров базы данных.", url:"https://www.kali.org/tools/sidguesser/" },
+  { name:"nosqlmap",      cat:"Database Assessment", desc:"Автоматизирует NoSQL-инъекции против MongoDB, Redis, CouchDB и других NoSQL-баз.", url:"https://github.com/codingo/NoSQLMap" },
+  { name:"hexorbase",     cat:"Database Assessment", desc:"GUI для одновременного аудита нескольких баз данных: MySQL, SQLite, Oracle, PostgreSQL, MS SQL.", url:"https://www.kali.org/tools/hexorbase/" },
+
+  // ─── Password Attacks (ещё) ────────────────────────────────────────────────
+  { name:"crowbar",       cat:"Password Attacks", desc:"Брутфорс по SSH-ключам, OpenVPN, RDP и VNC. Отличается от hydra: поддерживает ключи SSH.", url:"https://github.com/galkan/crowbar" },
+  { name:"johnny",        cat:"Password Attacks", desc:"Графический интерфейс для John the Ripper: удобный запуск атак и просмотр взломанных паролей.", url:"https://www.kali.org/tools/johnny/" },
+  { name:"pyrit",         cat:"Password Attacks", desc:"Брутфорс WPA/WPA2-PSK с использованием GPU и precomputed PMK-таблиц для максимальной скорости.", url:"https://github.com/JPaulMora/Pyrit" },
+  { name:"findmyhash",    cat:"Password Attacks", desc:"Ищет хеши в онлайн-базах данных с краткими паролями и радужными таблицами.", url:"https://www.kali.org/tools/findmyhash/" },
+  { name:"chntpw",        cat:"Password Attacks", desc:"Сбрасывает или меняет пароли Windows напрямую в SAM-файле без знания текущего пароля.", url:"https://www.kali.org/tools/chntpw/" },
+  { name:"fcrackzip",     cat:"Password Attacks", desc:"Быстрый крекер ZIP-архивов: брутфорс и словарная атака на защищённые паролем архивы.", url:"https://www.kali.org/tools/fcrackzip/" },
+  { name:"wordlists",     cat:"Password Attacks", desc:"Пакет Kali со словарями для атак: rockyou, darkweb, fasttrack и другие популярные листы.", url:"https://www.kali.org/tools/wordlists/" },
+
+  // ─── Wireless Attacks (ещё) ────────────────────────────────────────────────
+  { name:"airbase-ng",    cat:"Wireless Attacks", desc:"Имитирует точки доступа и перехватывает клиентские подключения для атак на беспроводные сети.", url:"https://www.aircrack-ng.org/doku.php?id=airbase-ng" },
+  { name:"airgraph-ng",   cat:"Wireless Attacks", desc:"Визуализирует данные airodump-ng: граф клиент-точка доступа и история атак.", url:"https://www.kali.org/tools/airgraph-ng/" },
+  { name:"airolib-ng",    cat:"Wireless Attacks", desc:"Управляет базой данных предвычисленных PMK-хешей для ускорения атак WPA/WPA2.", url:"https://www.aircrack-ng.org/doku.php?id=airolib-ng" },
+  { name:"airserv-ng",    cat:"Wireless Attacks", desc:"Сетевой демон для беспроводных карт: позволяет нескольким программам использовать одну карту.", url:"https://www.aircrack-ng.org/doku.php?id=airserv-ng" },
+  { name:"airtun-ng",     cat:"Wireless Attacks", desc:"Создаёт виртуальный туннельный интерфейс 802.11 для мониторинга и инъекции зашифрованного трафика.", url:"https://www.aircrack-ng.org/doku.php?id=airtun-ng" },
+  { name:"besside-ng",    cat:"Wireless Attacks", desc:"Автоматически взламывает все WEP-сети и собирает WPA-хендшейки в зоне видимости.", url:"https://www.aircrack-ng.org/doku.php?id=besside-ng" },
+  { name:"makeivs-ng",    cat:"Wireless Attacks", desc:"Генерирует файлы IV-векторов для тестирования атак на WEP-шифрование.", url:"https://www.aircrack-ng.org/doku.php?id=makeivs-ng" },
+  { name:"packetforge-ng",cat:"Wireless Attacks", desc:"Создаёт зашифрованные ARP, UDP, ICMP и пользовательские пакеты для инъекции в WiFi-сети.", url:"https://www.aircrack-ng.org/doku.php?id=packetforge-ng" },
+  { name:"wash",          cat:"Wireless Attacks", desc:"Сканирует точки доступа с включённым WPS для поиска целей атаки Pixie Dust.", url:"https://www.kali.org/tools/wash/" },
+  { name:"cowpatty",      cat:"Wireless Attacks", desc:"Словарная атака WPA/WPA2-PSK офлайн на основе захваченного 4-way handshake.", url:"https://www.kali.org/tools/cowpatty/" },
+  { name:"wlandump-ng",   cat:"Wireless Attacks", desc:"Дамп WLAN-трафика с поддержкой инъекции через nl80211 для мониторинга сетей.", url:"https://www.kali.org/tools/wlandump-ng/" },
+
+  // ─── Exploitation Tools (ещё) ─────────────────────────────────────────────
+  { name:"linux-exploit-suggester", cat:"Exploitation Tools", desc:"Анализирует версию ядра Linux и предлагает подходящие публичные эксплойты для повышения привилегий.", url:"https://github.com/mzet-/linux-exploit-suggester" },
+  { name:"windows-exploit-suggester", cat:"Exploitation Tools", desc:"Сравнивает патчи Windows с базой уязвимостей и предлагает эксплойты для текущей системы.", url:"https://github.com/AonCyberLabs/Windows-Exploit-Suggester" },
+  { name:"bypassuac",     cat:"Exploitation Tools", desc:"Скрипты обхода User Account Control на Windows для выполнения кода с повышенными правами.", url:"https://www.kali.org/tools/bypassuac/" },
+  { name:"htshells",      cat:"Exploitation Tools", desc:"Коллекция веб-шеллов на основе .htaccess для выполнения команд через Apache.", url:"https://www.kali.org/tools/htshells/" },
+  { name:"yara",          cat:"Exploitation Tools", desc:"Идентифицирует вредоносное ПО по сигнатурным правилам. Инструмент анализа малвари.", url:"https://github.com/VirusTotal/yara" },
+
+  // ─── Sniffing & Spoofing (ещё) ────────────────────────────────────────────
+  { name:"chaosreader",   cat:"Sniffing & Spoofing", desc:"Восстанавливает сессии из pcap-дампов: HTTP, FTP, Telnet, email, передачи файлов.", url:"https://www.kali.org/tools/chaosreader/" },
+  { name:"ngrep",         cat:"Sniffing & Spoofing", desc:"Grep для сети: сопоставляет регулярные выражения с данными в сетевых пакетах.", url:"https://www.kali.org/tools/ngrep/" },
+  { name:"urlsnarf",      cat:"Sniffing & Spoofing", desc:"Перехватывает и логирует все HTTP-запросы в CLF-формате из сетевого трафика.", url:"https://www.kali.org/tools/dsniff/" },
+  { name:"arpspoof",      cat:"Sniffing & Spoofing", desc:"Отравление ARP-кеша: перехватывает трафик между хостами в локальной сети.", url:"https://www.kali.org/tools/dsniff/" },
+  { name:"msgsnarf",      cat:"Sniffing & Spoofing", desc:"Перехватывает сообщения из ICQ, IRC, MSN, AIM и Yahoo Messenger из сетевого трафика.", url:"https://www.kali.org/tools/dsniff/" },
+  { name:"mailsnarf",     cat:"Sniffing & Spoofing", desc:"Захватывает письма из SMTP и POP-трафика и сохраняет в mbox-формате.", url:"https://www.kali.org/tools/dsniff/" },
+  { name:"webspy",        cat:"Sniffing & Spoofing", desc:"Мониторит HTTP-запросы жертвы и в реальном времени отображает их у атакующего в браузере.", url:"https://www.kali.org/tools/dsniff/" },
+
+  // ─── Post Exploitation (ещё) ───────────────────────────────────────────────
+  { name:"pspy",          cat:"Post Exploitation", desc:"Мониторит процессы Linux без root: видит cron-задачи, запуски скриптов и временные файлы.", url:"https://github.com/DominicBreuker/pspy" },
+  { name:"linenum",       cat:"Post Exploitation", desc:"Скрипт перечисления Linux: собирает системную информацию и векторы повышения привилегий.", url:"https://github.com/rebootuser/LinEnum" },
+  { name:"peass-ng",      cat:"Post Exploitation", desc:"PEASS-ng: LinPEAS и WinPEAS для автоматического поиска путей повышения привилегий.", url:"https://github.com/carlospolop/PEASS-ng" },
+  { name:"mimikatz",      cat:"Post Exploitation", desc:"Извлекает открытые пароли, хеши, PIN-коды и Kerberos-тикеты из памяти Windows.", url:"https://github.com/gentilkiwi/mimikatz" },
+  { name:"evil-winrm",    cat:"Post Exploitation", desc:"Шелл для Windows Remote Management: идеален для пентеста и постэксплуатации Windows-систем.", url:"https://github.com/Hackplayers/evil-winrm" },
+  { name:"crackmapexec",  cat:"Post Exploitation", desc:"Швейцарский нож пентестера Active Directory: SMB, LDAP, RDP, WinRM в одном инструменте.", url:"https://github.com/byt3bl33d3r/CrackMapExec" },
+  { name:"impacket-scripts",cat:"Post Exploitation", desc:"Коллекция скриптов Python: psexec, secretsdump, GetTGT, smbexec для работы с Windows-протоколами.", url:"https://github.com/SecureAuthCorp/impacket" },
+  { name:"bloodhound",    cat:"Post Exploitation", desc:"Визуализирует пути атаки в Active Directory через графовую базу данных Neo4j.", url:"https://github.com/BloodHoundAD/BloodHound" },
+  { name:"chisel",        cat:"Post Exploitation", desc:"TCP/UDP-туннелирование через HTTP с шифрованием SSH для пивотинга через файрволы.", url:"https://github.com/jpillora/chisel" },
+  { name:"ligolo-ng",     cat:"Post Exploitation", desc:"Туннелирование через TLS без необходимости root: удобный пивотинг в корпоративных сетях.", url:"https://github.com/nicocha30/ligolo-ng" },
+  { name:"certipy-ad",    cat:"Post Exploitation", desc:"Инструмент для атак на Active Directory Certificate Services: перечисление, эксплуатация ESC1-ESC8.", url:"https://github.com/ly4k/Certipy" },
+  { name:"netexec",       cat:"Post Exploitation", desc:"Форк CrackMapExec: выполнение команд по сети через SMB, SSH, WinRM, LDAP, RDP.", url:"https://github.com/Pennyw0rth/NetExec" },
+
+  // ─── Reverse Engineering (ещё) ───────────────────────────────────────────
+  { name:"androguard",    cat:"Reverse Engineering", desc:"Анализ Android-приложений: статический анализ DEX/APK, поиск малвари и построение call graph.", url:"https://github.com/androguard/androguard" },
+  { name:"floss",         cat:"Reverse Engineering", desc:"FireEye FLOSS: автоматически деобфусцирует строки в malware-бинарниках без запуска кода.", url:"https://github.com/mandiant/flare-floss" },
+  { name:"retdec",        cat:"Reverse Engineering", desc:"Декомпилятор от Avast: поддерживает x86, ARM, MIPS, восстанавливает C-код из бинарников.", url:"https://retdec.com/" },
+  { name:"ropper",        cat:"Reverse Engineering", desc:"Находит ROP/JOP/SYS-гаджеты в бинарных файлах для составления цепочек возврато-ориентированного программирования.", url:"https://github.com/sashs/Ropper" },
+  { name:"ropgadget",     cat:"Reverse Engineering", desc:"Поиск гаджетов для ROP-эксплойтов в ELF, PE, Mach-O с синтаксисом Capstone.", url:"https://github.com/JonathanSalwan/ROPgadget" },
+  { name:"apktool",       cat:"Reverse Engineering", desc:"Реверс-инжиниринг Android APK: декодирует ресурсы и smali-код, пересборка с изменениями.", url:"https://ibotpeaches.github.io/Apktool/" },
+  { name:"dex2jar",       cat:"Reverse Engineering", desc:"Конвертирует Android DEX-файлы в JAR для анализа Java-декомпиляторами.", url:"https://github.com/pxb1988/dex2jar" },
+  { name:"jadx",          cat:"Reverse Engineering", desc:"Декомпилятор DEX/APK в Java-исходники с GUI и поиском по коду.", url:"https://github.com/skylot/jadx" },
+  { name:"capstone",      cat:"Reverse Engineering", desc:"Многоплатформенный фреймворк дизассемблирования: x86, ARM, MIPS, PPC и другие архитектуры.", url:"https://www.capstone-engine.org/" },
+  { name:"edb-debugger",  cat:"Reverse Engineering", desc:"Кросс-платформенный отладчик в стиле OllyDbg для Linux с плагинами и скриптингом.", url:"https://github.com/eteran/edb-debugger" },
+  { name:"detect-it-easy",cat:"Reverse Engineering", desc:"Определяет компиляторы, упаковщики, криптографию и OEP в исполняемых файлах.", url:"https://github.com/horsicq/Detect-It-Easy" },
+
+  // ─── Forensics (ещё) ──────────────────────────────────────────────────────
+  { name:"bulk-extractor",cat:"Forensics", desc:"Высокоскоростной сканер форензических образов: извлекает email, URL, номера карт без монтирования.", url:"https://www.kali.org/tools/bulk-extractor/" },
+  { name:"chkrootkit",    cat:"Forensics", desc:"Проверяет Unix-системы на следы руткитов через анализ сигнатур и системных вызовов.", url:"http://www.chkrootkit.org/" },
+  { name:"volatility3",   cat:"Forensics", desc:"Фреймворк анализа дампов памяти: процессы, сети, реестр, малварь из Windows/Linux/macOS.", url:"https://github.com/volatilityfoundation/volatility3" },
+  { name:"ddrescue",      cat:"Forensics", desc:"Восстанавливает данные с повреждённых носителей: повторные чтения, логирование, продолжение прерванного.", url:"https://www.gnu.org/software/ddrescue/" },
+  { name:"testdisk",      cat:"Forensics", desc:"Восстанавливает удалённые разделы и делает загрузочными нечитаемые диски.", url:"https://www.cgsecurity.org/wiki/TestDisk" },
+  { name:"dc3dd",         cat:"Forensics", desc:"Патч dd от DC3 с хешированием, разбивкой на тома и прогресс-индикатором для форензики.", url:"https://www.kali.org/tools/dc3dd/" },
+  { name:"dumpzilla",     cat:"Forensics", desc:"Извлекает форензические данные из Firefox/Iceweasel/Seamonkey: куки, история, пароли.", url:"http://www.dumpzilla.org/" },
+  { name:"swap-digger",   cat:"Forensics", desc:"Автоматизирует анализ файла подкачки Linux для поиска паролей и конфиденциальных данных.", url:"https://www.kali.org/tools/swap-digger/" },
+  { name:"extundelete",   cat:"Forensics", desc:"Восстанавливает удалённые файлы с ext3/ext4 разделов по записям в журнале.", url:"https://www.kali.org/tools/extundelete/" },
+  { name:"exiv2",         cat:"Forensics", desc:"Читает, пишет и редактирует EXIF/IPTC/XMP-метаданные изображений через CLI.", url:"https://exiv2.org/" },
+  { name:"pev",           cat:"Forensics", desc:"Набор CLI-утилит для анализа PE-бинарников Windows: заголовки, секции, импорты, хеши.", url:"https://www.kali.org/tools/pev/" },
+
+  // ─── Social Engineering (ещё) ─────────────────────────────────────────────
+  { name:"gophish",       cat:"Social Engineering", desc:"Фреймворк фишинга с веб-интерфейсом: создание кампаний, отслеживание кликов и открытий.", url:"https://getgophish.com/" },
+  { name:"king-phisher",  cat:"Social Engineering", desc:"Инструмент для сложных фишинговых кампаний с отслеживанием целей и поддержкой шаблонов.", url:"https://github.com/rsmusllp/king-phisher" },
+  { name:"evilginx2",     cat:"Social Engineering", desc:"MITM-фреймворк для обхода двухфакторной аутентификации через reverse-proxy фишинговые страницы.", url:"https://github.com/kgretzky/evilginx2" },
+  { name:"ghost-phisher", cat:"Social Engineering", desc:"Фишинг через поддельную точку доступа с DNS-спуфингом, DHCP-сервером и HTTP-сервером.", url:"https://github.com/savio-code/ghost-phisher" },
+  { name:"modlishka",     cat:"Social Engineering", desc:"Реверс-прокси для фишинга: захватывает учётные данные и 2FA-токены через прозрачный прокси.", url:"https://github.com/drk1wi/Modlishka" },
+
+  // ─── Crypto & Steganography (ещё) ────────────────────────────────────────
+  { name:"openstego",     cat:"Crypto & Steganography", desc:"Скрывает данные в изображениях методами LSB и цифровых водяных знаков.", url:"https://www.openstego.com/" },
+  { name:"stegosuite",    cat:"Crypto & Steganography", desc:"GUI-инструмент стеганографии: встраивает файлы в изображения BMP, GIF, PNG, JPG с шифрованием.", url:"https://stegosuite.org/" },
+  { name:"ccrypt",        cat:"Crypto & Steganography", desc:"Шифрует и дешифрует файлы и потоки алгоритмом Rijndael с 256-битным ключом.", url:"http://ccrypt.sourceforge.net/" },
+  { name:"stegcracker",   cat:"Crypto & Steganography", desc:"Брутфорс паролей steghide: перебирает словарь для извлечения скрытых данных из изображений.", url:"https://github.com/Paradoxis/StegCracker" },
+  { name:"bruteforce-luks",cat:"Crypto & Steganography", desc:"Брутфорс пароля LUKS-шифрованных разделов через словарные атаки.", url:"https://github.com/glv2/bruteforce-luks" },
+
+  // ─── Hardware Hacking (ещё) ───────────────────────────────────────────────
+  { name:"avrdude",       cat:"Hardware Hacking", desc:"Программирует и верифицирует AVR-микроконтроллеры через различные аппаратные программаторы.", url:"https://www.nongnu.org/avrdude/" },
+  { name:"sigrok",        cat:"Hardware Hacking", desc:"Анализатор сигналов и логический анализатор с поддержкой 100+ протоколов и устройств.", url:"https://sigrok.org/" },
+  { name:"dfu-util",      cat:"Hardware Hacking", desc:"Загружает прошивки в устройства через USB DFU-протокол без специального программатора.", url:"http://dfu-util.sourceforge.net/" },
+  { name:"android-sdk-platform-tools", cat:"Hardware Hacking", desc:"ADB и fastboot для Android: отладка, прошивка, бэкап и получение root на устройствах.", url:"https://developer.android.com/studio/releases/platform-tools" },
+
+  // ─── Reporting Tools (ещё) ────────────────────────────────────────────────
+  { name:"dradis",        cat:"Reporting Tools", desc:"Коллаборативная платформа отчётности: импортирует результаты инструментов и генерирует документы.", url:"https://dradisframework.com/" },
+  { name:"pirate",        cat:"Reporting Tools", desc:"Генерирует HTML-отчёты пентеста из JSON-данных различных сканеров.", url:"https://www.kali.org/tools/pirate/" },
+  { name:"metagoofil",    cat:"Reporting Tools", desc:"Извлекает метаданные из публичных документов: PDF, DOC, XLS, PPT для OSINT-разведки.", url:"https://www.kali.org/tools/metagoofil/" },
+
+  // ─── Fuzzing Tools (ещё) ─────────────────────────────────────────────────
+  { name:"boofuzz",       cat:"Fuzzing Tools", desc:"Форк sulley: сетевой фаззинг-фреймворк с поддержкой состояний сессии и логированием краша.", url:"https://github.com/jtpereyda/boofuzz" },
+  { name:"radamsa",       cat:"Fuzzing Tools", desc:"Универсальный мутационный фаззер: генерирует аномальные входные данные из правильных примеров.", url:"https://gitlab.com/akihe/radamsa" },
+  { name:"zzuf",          cat:"Fuzzing Tools", desc:"Прозрачный фаззер приложений: случайно искажает вводимые данные для обнаружения сбоев.", url:"https://github.com/samhocevar/zzuf" },
+  { name:"aflplusplus",   cat:"Fuzzing Tools", desc:"American Fuzzy Lop++: покрытие-ориентированный фаззер с инструментацией кода для максимального охвата.", url:"https://github.com/AFLplusplus/AFLplusplus" },
+  { name:"bed",           cat:"Fuzzing Tools", desc:"Брутфорс строк демонов: отправляет некорректные строки в сетевые сервисы для поиска уязвимостей.", url:"https://www.kali.org/tools/bed/" },
+
+  // ─── Protection Tools (ещё) ──────────────────────────────────────────────
+  { name:"apparmor",      cat:"Protection Tools", desc:"Обязательный контроль доступа Linux: ограничивает привилегии программ через профили безопасности.", url:"https://www.apparmor.net/" },
+  { name:"fail2ban",      cat:"Protection Tools", desc:"Сканирует лог-файлы и блокирует IP-адреса с признаками брутфорса через iptables/firewalld.", url:"https://www.fail2ban.org/" },
+  { name:"tiger",         cat:"Protection Tools", desc:"Аудит безопасности Unix-систем и IDS: проверяет конфигурацию, права файлов и аномалии.", url:"https://www.nongnu.org/tiger/" },
+  { name:"nwipe",         cat:"Protection Tools", desc:"Безвозвратно затирает диски по нескольким алгоритмам: DoD 5220.22-M, Gutmann, PRNG.", url:"https://www.kali.org/tools/nwipe/" },
+
+  // ─── Information Gathering (современные инструменты) ──────────────────────
+  { name:"sublist3r",     cat:"Information Gathering", desc:"Перечисляет поддомены через OSINT: Google, Bing, Baidu, Netcraft, VirusTotal, DNSdumpster.", url:"https://github.com/aboul3la/Sublist3r" },
+  { name:"osrframework",  cat:"Information Gathering", desc:"Набор инструментов OSINT: alias checker, email finder, DNS tools для разведки по открытым источникам.", url:"https://github.com/i3visio/osrframework" },
+  { name:"phoneinfoga",   cat:"Information Gathering", desc:"Разведка по номеру телефона: определяет оператора, страну, репутацию и OSINT-данные.", url:"https://github.com/sundowndev/phoneinfoga" },
+  { name:"h8mail",        cat:"Information Gathering", desc:"Поиск скомпрометированных email-адресов в утечках через локальные базы и онлайн-API.", url:"https://github.com/khast3x/h8mail" },
+  { name:"holehe",        cat:"Information Gathering", desc:"Проверяет, зарегистрирован ли email на 120+ сервисах без спама через API восстановления пароля.", url:"https://github.com/megadose/holehe" },
+  { name:"sherlock",      cat:"Information Gathering", desc:"Находит аккаунты пользователя по username на 300+ платформах: соцсети, форумы, сайты.", url:"https://github.com/sherlock-project/sherlock" },
+  { name:"creepy",        cat:"Information Gathering", desc:"Геолокационная OSINT-разведка через Twitter и Flickr: собирает места публикаций.", url:"https://www.geocreepy.com/" },
+  { name:"dnsx",          cat:"Information Gathering", desc:"Быстрый DNS-тулкит: массовое разрешение, перебор записей, проверка wildcard-доменов.", url:"https://github.com/projectdiscovery/dnsx" },
+  { name:"shodan",        cat:"Information Gathering", desc:"CLI для Shodan: поиск IoT-устройств, открытых портов и уязвимых систем в интернете.", url:"https://cli.shodan.io/" },
+  { name:"datasploit",    cat:"Information Gathering", desc:"OSINT-фреймворк: автоматически собирает данные о домене, email, IP и пользователе.", url:"https://github.com/DataSploit/datasploit" },
+  { name:"crosslinked",   cat:"Information Gathering", desc:"Перечисляет сотрудников компании через LinkedIn без использования API.", url:"https://github.com/m8r0wn/CrossLinked" },
+
+  // ─── Web Application Analysis (современные инструменты) ───────────────────
+  { name:"dalfox",        cat:"Web Application Analysis", desc:"Быстрый Go-сканер XSS: автоматический анализ параметров, DOM XSS, Blind XSS с PoC.", url:"https://github.com/hahwul/dalfox" },
+  { name:"katana",        cat:"Web Application Analysis", desc:"Краулер нового поколения с JavaScript-рендерингом, собирает все endpoints и формы.", url:"https://github.com/projectdiscovery/katana" },
+  { name:"gau",           cat:"Web Application Analysis", desc:"Получает все известные URL цели из Wayback Machine, OTX, URLScan и Common Crawl.", url:"https://github.com/lc/gau" },
+  { name:"waybackurls",   cat:"Web Application Analysis", desc:"Извлекает все URL, сохранённые Wayback Machine для указанного домена.", url:"https://github.com/tomnomnom/waybackurls" },
+  { name:"linkfinder",    cat:"Web Application Analysis", desc:"Находит endpoints и чувствительные данные в JavaScript-файлах веб-приложений.", url:"https://github.com/GerbenJavado/LinkFinder" },
+  { name:"gospider",      cat:"Web Application Analysis", desc:"Быстрый Go-паук: рекурсивный обход сайтов с поддержкой JS-рендеринга и Wayback Machine.", url:"https://github.com/jaeles-project/gospider" },
+  { name:"kiterunner",    cat:"Web Application Analysis", desc:"Контентный сканер для обнаружения API-маршрутов с поддержкой OpenAPI/Swagger спецификаций.", url:"https://github.com/assetnote/kiterunner" },
+  { name:"caido",         cat:"Web Application Analysis", desc:"Легковесный прокси-инструмент для аудита веб-приложений с удобным UI и автоматизацией.", url:"https://caido.io/" },
+  { name:"xsstrike",      cat:"Web Application Analysis", desc:"Продвинутый XSS-сканер с анализом контекста, обходом WAF и поддержкой Blind XSS.", url:"https://github.com/s0md3v/XSStrike" },
+  { name:"sslyze",        cat:"Web Application Analysis", desc:"Быстрый анализатор SSL/TLS серверов: сканирует конфигурацию, сертификаты и уязвимости.", url:"https://github.com/nabla-c0d3/sslyze" },
+  { name:"testssl.sh",    cat:"Web Application Analysis", desc:"Bash-скрипт тестирования SSL/TLS: проверяет шифры, протоколы, heartbleed и другие уязвимости.", url:"https://testssl.sh/" },
+  { name:"sslscan",       cat:"Web Application Analysis", desc:"Определяет поддерживаемые SSL/TLS версии и шифры, выявляет слабые конфигурации.", url:"https://github.com/rbsec/sslscan" },
+  { name:"sslstrip",      cat:"Web Application Analysis", desc:"MITM-атака на HTTPS: понижает соединения до HTTP для перехвата трафика.", url:"https://moxie.org/software/sslstrip/" },
+  { name:"dotdotpwn",     cat:"Web Application Analysis", desc:"Фаззер обхода директорий: автоматически тестирует path traversal через HTTP, FTP, TFTP.", url:"https://github.com/wireghoul/dotdotpwn" },
+
+  // ─── Post Exploitation (современные инструменты) ──────────────────────────
+  { name:"pypykatz",      cat:"Post Exploitation", desc:"Python-реализация Mimikatz: работает на Linux для анализа дампов LSASS и SAM-файлов.", url:"https://github.com/skelsec/pypykatz" },
+  { name:"lsassy",        cat:"Post Exploitation", desc:"Удалённо дампит учётные данные из LSASS через различные методы без загрузки файлов на цель.", url:"https://github.com/Hackndo/lsassy" },
+  { name:"pwncat",        cat:"Post Exploitation", desc:"Netcat на стероидах: автоматическое повышение привилегий, персистентность, модульный фреймворк.", url:"https://github.com/calebstewart/pwncat" },
+  { name:"empire",        cat:"Post Exploitation", desc:"Постэксплуатационный фреймворк с PowerShell и Python3 агентами без meterpreter.", url:"https://github.com/BC-SECURITY/Empire" },
+  { name:"caldera",       cat:"Post Exploitation", desc:"Платформа MITRE для автоматизированного тестирования безопасности по матрице ATT&CK.", url:"https://github.com/mitre/caldera" },
+  { name:"proxychains-ng",cat:"Post Exploitation", desc:"Перенаправляет TCP-соединения через цепочку прокси (SOCKS4/5, HTTP) для анонимизации трафика.", url:"https://github.com/rofl0r/proxychains-ng" },
+  { name:"mitm6",         cat:"Post Exploitation", desc:"MITM IPv6-атака: злоупотребляет DHCPv6 для захвата учётных данных Active Directory.", url:"https://github.com/dirkjanm/mitm6" },
+
+  // ─── Information Gathering (OSINT специализированные) ─────────────────────
+  { name:"trufflehog",    cat:"Information Gathering", desc:"Находит секреты в git-репозиториях: API-ключи, пароли, токены с высокой энтропией.", url:"https://github.com/trufflesecurity/trufflehog" },
+  { name:"gitleaks",      cat:"Information Gathering", desc:"Ищет захардкоженные секреты в git-истории: пароли, ключи API, токены авторизации.", url:"https://github.com/zricethezav/gitleaks" },
+  { name:"eyewitness",    cat:"Information Gathering", desc:"Делает скриншоты веб-сайтов, RDP и VNC-сервисов для быстрого визуального обзора целей.", url:"https://github.com/FortyNorthSecurity/EyeWitness" },
+  { name:"finalrecon",    cat:"Information Gathering", desc:"Быстрый веб-разведчик: заголовки, Whois, SSL, DNS, ссылки, DNS zone transfer.", url:"https://github.com/thewhiteh4t/FinalRecon" },
+  { name:"autorecon",     cat:"Information Gathering", desc:"Автоматизирует разведку: запускает nmap, gobuster, nikto и другие инструменты параллельно.", url:"https://github.com/Tib3rius/AutoRecon" },
+  { name:"altdns",        cat:"Information Gathering", desc:"Генерирует перестановки поддоменов и разрешает их для обнаружения скрытой инфраструктуры.", url:"https://github.com/infosec-au/altdns" },
+  { name:"cloud-enum",    cat:"Information Gathering", desc:"Перечисляет ресурсы облачных провайдеров AWS, Azure и GCP по ключевым словам.", url:"https://github.com/initstring/cloud_enum" },
+  { name:"nuclei",        cat:"Information Gathering", desc:"Шаблонный сканер уязвимостей: тысячи community-шаблонов для CVE, misconfig, exposed panels.", url:"https://github.com/projectdiscovery/nuclei" },
+  { name:"spiderfoot",    cat:"Information Gathering", desc:"Автоматизированная OSINT-разведка: 200+ модулей для сбора данных о целях из открытых источников.", url:"https://www.spiderfoot.net/" },
+
+  // ─── Vulnerability Analysis (ещё) ─────────────────────────────────────────
+  { name:"graudit",       cat:"Vulnerability Analysis", desc:"Статический анализ кода командной строкой: ищет уязвимые паттерны через grep по базе сигнатур.", url:"https://github.com/wireghoul/graudit" },
+  { name:"gvm",           cat:"Vulnerability Analysis", desc:"Greenbone Vulnerability Manager: комплексный сканер уязвимостей с CVSS и детальными отчётами.", url:"https://www.greenbone.net/" },
+  { name:"hping3",        cat:"Vulnerability Analysis", desc:"TCP/IP Swiss Army: крафтинг пакетов, трассировка, firewall testing, DoS-тесты.", url:"http://www.hping.org/" },
+
+  // ─── Wireless Attacks (ещё aircrack suite) ────────────────────────────────
+  { name:"airodump-ng",   cat:"Wireless Attacks", desc:"Захват 802.11 кадров: снифф пакетов, поиск сетей и сбор хендшейков WPA.", url:"https://www.aircrack-ng.org/doku.php?id=airodump-ng" },
+  { name:"aireplay-ng",   cat:"Wireless Attacks", desc:"Инъекция пакетов 802.11: деаутентификация, ARP replay, fake auth для атак на WEP/WPA.", url:"https://www.aircrack-ng.org/doku.php?id=aireplay-ng" },
+  { name:"airmon-ng",     cat:"Wireless Attacks", desc:"Переводит беспроводные карты в режим монитора и обратно, управляет мешающими процессами.", url:"https://www.aircrack-ng.org/doku.php?id=airmon-ng" },
+  { name:"aircrack-ng",   cat:"Wireless Attacks", desc:"Взлом WEP и WPA/WPA2-PSK: восстанавливает ключи из захваченных пакетов или хендшейков.", url:"https://www.aircrack-ng.org/" },
+  { name:"wifite",        cat:"Wireless Attacks", desc:"Полностью автоматизированная атака на беспроводные сети: WEP, WPA, WPS за минимальное время.", url:"https://github.com/derv82/wifite2" },
+  { name:"hostapd-wpe",   cat:"Wireless Attacks", desc:"Точка доступа с перехватом WPE: захватывает учётные данные PEAP/EAP-TTLS корпоративных сетей.", url:"https://github.com/OpenSecurityResearch/hostapd-wpe" },
+  { name:"wifiphisher",   cat:"Wireless Attacks", desc:"Автоматизированная фишинговая точка доступа с Evil Twin для получения паролей WiFi.", url:"https://github.com/wifiphisher/wifiphisher" },
+  { name:"reaver",        cat:"Wireless Attacks", desc:"Брутфорс PIN-кода WPS: восстанавливает WPA/WPA2 пароли через протокол Wi-Fi Protected Setup.", url:"https://github.com/t6x/reaver-wps-fork-t6x" },
+  { name:"bully",         cat:"Wireless Attacks", desc:"Альтернативный брутфорс WPS: реализует атаку на PIN с исправлениями ошибок протокола.", url:"https://github.com/aanarchyy/bully" },
+  { name:"eaphammer",     cat:"Wireless Attacks", desc:"Атаки на корпоративные WPA2-Enterprise: Evil Twin, кража NTLM-хешей через злую точку доступа.", url:"https://github.com/s0lst1c3/eaphammer" },
+  { name:"airgeddon",     cat:"Wireless Attacks", desc:"Мультифункциональный Bash-скрипт для аудита WiFi: все атаки в интерактивном меню.", url:"https://github.com/v1s1t0r1sh3r3/airgeddon" },
+  { name:"fluxion",       cat:"Wireless Attacks", desc:"Социальная инженерия в WiFi: Evil Twin с фишинговым порталом для получения пароля сети.", url:"https://github.com/FluxionNetwork/fluxion" },
+
+  // ─── Sniffing & Spoofing (ещё) ────────────────────────────────────────────
+  { name:"scapy",         cat:"Sniffing & Spoofing", desc:"Python-фреймворк для крафтинга пакетов: создание, отправка, декодирование пакетов любых протоколов.", url:"https://scapy.net/" },
+  { name:"mitmproxy",     cat:"Sniffing & Spoofing", desc:"Интерактивный TLS-прокси с CLI, TUI и Python-API для перехвата и модификации HTTP/HTTPS.", url:"https://mitmproxy.org/" },
+  { name:"dnschef",       cat:"Sniffing & Spoofing", desc:"Настраиваемый DNS-прокси: перехватывает и подделывает ответы DNS для MITM и тестирования.", url:"https://github.com/iphelix/dnschef" },
+  { name:"dsniff",        cat:"Sniffing & Spoofing", desc:"Набор сетевых снифферов: arpspoof, dnsspoof, dsniff, webspy, filesnarf для аудита сети.", url:"https://www.monkey.org/~dugsong/dsniff/" },
+  { name:"yersinia",      cat:"Sniffing & Spoofing", desc:"Атаки на L2-протоколы: STP, CDP, VTP, DHCP, 802.1Q, 802.1X для взлома коммутируемых сетей.", url:"https://www.kali.org/tools/yersinia/" },
+  { name:"macchanger",    cat:"Sniffing & Spoofing", desc:"Изменяет MAC-адрес сетевого интерфейса для анонимизации или клонирования другого устройства.", url:"https://github.com/alobbs/macchanger" },
+
+  // ─── Exploitation Tools (ещё) ─────────────────────────────────────────────
+  { name:"searchsploit",  cat:"Exploitation Tools", desc:"CLI для Exploit-DB: поиск офлайн по базе эксплойтов без интернета.", url:"https://github.com/offensive-security/exploitdb" },
+  { name:"armitage",      cat:"Exploitation Tools", desc:"Графический интерфейс для Metasploit: визуализация сети, автоматические атаки, управление сессиями.", url:"http://www.fastandeasyhacking.com/" },
+  { name:"veil",          cat:"Exploitation Tools", desc:"Генерирует пейлоады, обходящие большинство антивирусов: Meterpreter через Python, C, PowerShell.", url:"https://github.com/Veil-Framework/Veil" },
+  { name:"routersploit",  cat:"Exploitation Tools", desc:"Фреймворк эксплуатации встроенных устройств: роутеры, камеры, NAS с базой CVE.", url:"https://github.com/threat9/routersploit" },
+  { name:"set",           cat:"Exploitation Tools", desc:"Social Engineering Toolkit: масштабные векторы социальной инженерии, фишинг, malicious PDF.", url:"https://github.com/trustedsec/social-engineer-toolkit" },
+  { name:"powershell-empire", cat:"Exploitation Tools", desc:"Постэксплуатационный агент PowerShell без meterpreter: модули, listeners, кастомные stagers.", url:"https://github.com/EmpireProject/Empire" },
+
+  // ─── Forensics (ещё) ──────────────────────────────────────────────────────
+  { name:"lime",          cat:"Forensics", desc:"Linux Memory Extractor: LKM для захвата памяти Linux в lime, raw или padded форматах.", url:"https://github.com/504ensicsLabs/LiME" },
+  { name:"rekall",        cat:"Forensics", desc:"Продвинутый фреймворк анализа памяти: форк Volatility с улучшенным профилем и адресными пространствами.", url:"http://www.rekall-forensic.com/" },
+  { name:"nwipe",         cat:"Forensics", desc:"Безопасное затирание дисков с логированием: DoD, Gutmann, PRNG-методы для форензических нужд.", url:"https://www.kali.org/tools/nwipe/" },
+
+  // ─── Crypto & Steganography (ещё) ─────────────────────────────────────────
+  { name:"hashid",        cat:"Crypto & Steganography", desc:"Идентифицирует тип хеша по его формату и длине с указанием вероятных алгоритмов.", url:"https://github.com/psypanda/hashID" },
+  { name:"hcxtools",      cat:"Crypto & Steganography", desc:"Конвертирует pcap-файлы с WPA-хендшейками в форматы hashcat/john для офлайн-взлома.", url:"https://github.com/ZerBea/hcxtools" },
+  { name:"rainbowcrack",  cat:"Crypto & Steganography", desc:"Взлом хешей по радужным таблицам: генерация и использование для LM, NTLM, MD5, SHA1.", url:"http://project-rainbowcrack.com/" },
+
+  // ─── Hardware Hacking (ещё) ───────────────────────────────────────────────
+  { name:"binwalk",       cat:"Hardware Hacking", desc:"Анализирует и извлекает данные из бинарных образов прошивок: поиск встроенных файловых систем.", url:"https://github.com/ReFirmLabs/binwalk" },
+  { name:"firmware-mod-kit", cat:"Hardware Hacking", desc:"Разбирает и пересобирает образы прошивок для модификации встроенного ПО роутеров.", url:"https://github.com/rampageX/firmware-mod-kit" },
+
+  // ─── Reporting Tools (ещё) ────────────────────────────────────────────────
+  { name:"cherrytree",    cat:"Reporting Tools", desc:"Иерархический редактор заметок с синтаксисом кода, шифрованием и экспортом в PDF/HTML.", url:"https://www.giuspen.net/cherrytree/" },
+  { name:"maltego",       cat:"Reporting Tools", desc:"Визуализирует связи между объектами OSINT: персоны, домены, IP, организации на графе.", url:"https://www.maltego.com/" },
+
+  // ─── Social Engineering (ещё) ─────────────────────────────────────────────
+  { name:"beef-xss",      cat:"Social Engineering", desc:"Browser Exploitation Framework: управляет браузерами жертв через XSS для атак в контексте браузера.", url:"https://beefproject.com/" },
+  { name:"wifiphisher",   cat:"Social Engineering", desc:"Evil Twin с автоматическим деаутом: заставляет жертву подключиться и ввести пароль WiFi.", url:"https://github.com/wifiphisher/wifiphisher" },
+
+  // ─── Information Gathering (современные Go-инструменты) ───────────────────
+  { name:"httpx",         cat:"Information Gathering", desc:"Быстрый HTTP-зонд: проверяет живые хосты, статус-коды, технологии, заголовки в потоковом режиме.", url:"https://github.com/projectdiscovery/httpx" },
+  { name:"naabu",         cat:"Information Gathering", desc:"Быстрый Go-сканер портов с поддержкой SYN/CONNECT, pipe-friendly для bug bounty пайплайнов.", url:"https://github.com/projectdiscovery/naabu" },
+  { name:"interactsh",    cat:"Information Gathering", desc:"OOB-сервер для обнаружения слепых уязвимостей: получает DNS/HTTP/SMTP пинги от пейлоадов.", url:"https://github.com/projectdiscovery/interactsh" },
+  { name:"gowitness",     cat:"Information Gathering", desc:"Веб-скриншотилка на Go: делает скриншоты URL списком с HTTP-отчётом и хешами.", url:"https://github.com/sensepost/gowitness" },
+  { name:"aquatone",      cat:"Information Gathering", desc:"Визуальная разведка по поддоменам: делает скриншоты и строит HTML-отчёт для быстрого просмотра.", url:"https://github.com/michenriksen/aquatone" },
+  { name:"assetfinder",   cat:"Information Gathering", desc:"Находит домены и поддомены цели через crt.sh, HackerTarget, URLScan и другие источники.", url:"https://github.com/tomnomnom/assetfinder" },
+  { name:"subfinder",     cat:"Information Gathering", desc:"Пассивный перебор поддоменов через DNS, Certificate Transparency и открытые базы данных.", url:"https://github.com/projectdiscovery/subfinder" },
+  { name:"amass",         cat:"Information Gathering", desc:"Комплексный OSINT-фреймворк для картирования атаки: поддомены, IP, ASN, связи между ними.", url:"https://github.com/OWASP/Amass" },
+  { name:"arjun",         cat:"Information Gathering", desc:"Обнаружение скрытых HTTP-параметров: тестирует тысячи имён параметров для поиска незадокументированных.", url:"https://github.com/s0md3v/Arjun" },
+  { name:"dmitry",        cat:"Information Gathering", desc:"Deepmagic Information Gathering Tool: Whois, Netcraft, поддомены, email, TCP-порты.", url:"https://www.kali.org/tools/dmitry/" },
+  { name:"enum4linux-ng", cat:"Information Gathering", desc:"Обновлённый enum4linux: перечисляет Windows/Samba через SMB, LDAP без зависимости от samba.", url:"https://github.com/cddmp/enum4linux-ng" },
+  { name:"enum4linux",    cat:"Information Gathering", desc:"Перечисляет информацию из Windows и Samba: пользователи, группы, шары, политики паролей.", url:"https://www.kali.org/tools/enum4linux/" },
+
+  // ─── Web Application Analysis (ещё) ──────────────────────────────────────
+  { name:"cmseek",        cat:"Web Application Analysis", desc:"CMS-детектор: определяет движок сайта и ищет уязвимости для WordPress, Joomla, Drupal и 170+ CMS.", url:"https://github.com/Tuhinshubhra/CMSeek" },
+  { name:"whatweb",       cat:"Web Application Analysis", desc:"Сканер технологий веб-приложений: определяет CMS, фреймворки, серверы, аналитику.", url:"https://github.com/urbanadventurer/WhatWeb" },
+  { name:"cutycapt",      cat:"Web Application Analysis", desc:"Снимает скриншот веб-страницы через WebKit: сохраняет в PNG, PDF, SVG для отчётности.", url:"https://cutycapt.sourceforge.net/" },
+
+  // ─── Database Assessment (ещё) ────────────────────────────────────────────
+  { name:"mdbtools",      cat:"Database Assessment", desc:"Читает базы данных Microsoft Access (.mdb) на Linux без Windows для форензики и анализа.", url:"https://github.com/mdbtools/mdbtools" },
+  { name:"oscanner",      cat:"Database Assessment", desc:"Фреймворк оценки Oracle: SID enumeration, получение хешей паролей и аудит аккаунтов.", url:"https://www.kali.org/tools/oscanner/" },
+
+  // ─── Reverse Engineering (продвинутые) ────────────────────────────────────
+  { name:"pwntools",      cat:"Reverse Engineering", desc:"CTF-фреймворк для exploit-разработки: работа с процессами, ROP, форматированием структур данных.", url:"https://github.com/Gallopsled/pwntools" },
+  { name:"angr",          cat:"Reverse Engineering", desc:"Python-фреймворк бинарного анализа: символьное выполнение, конкольный анализ, поиск уязвимостей.", url:"https://angr.io/" },
+  { name:"keystone",      cat:"Reverse Engineering", desc:"Лёгкий фреймворк-ассемблер: x86, ARM, MIPS, SPARC, PowerPC для крафтинга shellcode.", url:"https://www.keystone-engine.org/" },
+  { name:"unicorn",       cat:"Reverse Engineering", desc:"Лёгкий CPU-эмулятор на основе QEMU: эмулирует инструкции x86, ARM, MIPS без ОС.", url:"https://www.unicorn-engine.org/" },
+  { name:"one-gadget",    cat:"Reverse Engineering", desc:"Находит magic gadgets в libc для одной инструкции execve ROP без цепочки гаджетов.", url:"https://github.com/david942j/one_gadget" },
+  { name:"nasm",          cat:"Reverse Engineering", desc:"Netwide Assembler: x86/x64 ассемблер для написания шеллкода и низкоуровневого кода.", url:"https://www.nasm.us/" },
+
+  // ─── Forensics (специализированные) ──────────────────────────────────────
+  { name:"readpst",       cat:"Forensics", desc:"Конвертирует Microsoft Outlook PST-файлы в mbox и другие форматы для форензического анализа.", url:"https://www.kali.org/tools/readpst/" },
+  { name:"f3",            cat:"Forensics", desc:"Тестирует flash-накопители на мошенничество: проверяет реальную ёмкость и скорость записи.", url:"https://github.com/AltraMayor/f3" },
+  { name:"naft",          cat:"Forensics", desc:"Сетевой форензический анализ: извлекает данные из дампов трафика и образов памяти Cisco.", url:"https://blog.didierstevens.com/programs/naft/" },
+  { name:"offset-tester", cat:"Forensics", desc:"Тестирует смещения в форматах файлов для форензического анализа и поиска скрытых данных.", url:"https://www.kali.org/tools/offset-tester/" },
+
+  // ─── SDR (ещё) ────────────────────────────────────────────────────────────
+  { name:"rtl-sdr",       cat:"SDR", desc:"Драйверы и утилиты для RTL2832U-донглов: превращает дешёвый DVB-T ресивер в SDR-приёмник.", url:"https://osmocom.org/projects/rtl-sdr/wiki" },
+  { name:"dump1090",      cat:"SDR", desc:"Простой Mode S-декодер для RTL-SDR: отображает воздушные суда в реальном времени.", url:"https://github.com/antirez/dump1090" },
+  { name:"gnss-sdr",      cat:"SDR", desc:"Программный GNSS-приёмник: декодирует GPS, Galileo, GLONASS, BeiDou с RTL-SDR.", url:"https://gnss-sdr.org/" },
+  { name:"sdrpp",         cat:"SDR", desc:"Кросс-платформенный SDR-ресивер с чистым UI: поддерживает HackRF, RTL-SDR, PlutoSDR.", url:"https://www.sdrpp.org/" },
+
+  // ─── Bluetooth Tools (ещё) ────────────────────────────────────────────────
+  { name:"btlejack",      cat:"Bluetooth Tools", desc:"BLE-снайпер: перехватывает и взламывает BLE-соединения с использованием micro:bit.", url:"https://github.com/virtualabs/btlejack" },
+  { name:"btlejuice",     cat:"Bluetooth Tools", desc:"BLE MITM-фреймворк: перехватывает и модифицирует трафик между BLE-устройствами.", url:"https://github.com/DigitalSecurity/btlejuice" },
+  { name:"gatttool",      cat:"Bluetooth Tools", desc:"Командный GATT-клиент для BLE: читает и пишет характеристики устройств Bluetooth LE.", url:"https://www.kali.org/tools/bluez/" },
+
+  // ─── Fuzzing Tools (ещё) ─────────────────────────────────────────────────
+  { name:"honggfuzz",     cat:"Fuzzing Tools", desc:"Feedback-driven мультипроцессорный фаззер с инструментацией кода через PIN и perf.", url:"https://github.com/google/honggfuzz" },
+  { name:"domato",        cat:"Fuzzing Tools", desc:"Генератор DOM-фаззинга от Google: находит уязвимости в браузерных движках.", url:"https://github.com/googleprojectzero/domato" },
+  { name:"peach",         cat:"Fuzzing Tools", desc:"Смарт-фаззер на основе питов: модели данных и состояний для протоколов и форматов файлов.", url:"https://www.peach.tech/" },
+  { name:"wfuzz",         cat:"Fuzzing Tools", desc:"Веб-фаззер: перебирает параметры, директории, заголовки и куки для поиска уязвимостей.", url:"https://github.com/xmendez/wfuzz" },
+
+  // ─── Protection Tools (ещё) ──────────────────────────────────────────────
+  { name:"chkrootkit",    cat:"Protection Tools", desc:"Проверяет Unix-системы на следы руткитов через анализ бинарников, сетевых интерфейсов, crontab.", url:"http://www.chkrootkit.org/" },
+  { name:"lynis",         cat:"Protection Tools", desc:"Аудит безопасности и hardening Linux/macOS: 300+ тестов, рекомендации по усилению системы.", url:"https://cisofy.com/lynis/" },
+  { name:"graudit",       cat:"Protection Tools", desc:"Grep-аудит: статический анализ исходного кода на уязвимые паттерны без сложной настройки.", url:"https://github.com/wireghoul/graudit" },
+
+  // ─── Hardware Hacking (ещё) ───────────────────────────────────────────────
+  { name:"picocom",       cat:"Hardware Hacking", desc:"Минималистичный серийный терминал: подключение к встроенным системам через UART/TTL.", url:"https://github.com/npat-efault/picocom" },
+  { name:"srecord",       cat:"Hardware Hacking", desc:"Манипуляция Intel HEX и Motorola SREC файлами прошивок: конвертация, слияние, разрезка.", url:"http://srecord.sourceforge.net/" },
+  { name:"proxmark3",     cat:"Hardware Hacking", desc:"Профессиональный инструмент для RFID/NFC: чтение, запись, эмуляция и сниффинг карт.", url:"https://proxmark.com/" },
+  { name:"gnuradio",      cat:"Hardware Hacking", desc:"Фреймворк SDR: обработка сигналов в реальном времени через программируемые блоки.", url:"https://www.gnuradio.org/" },
+
+  // ─── Sniffing & Spoofing (ещё) ────────────────────────────────────────────
+  { name:"netcat",        cat:"Sniffing & Spoofing", desc:"Сетевой швейцарский нож: TCP/UDP-соединения, прокси, бэкдоры, сканирование портов.", url:"https://www.kali.org/tools/netcat/" },
+  { name:"socat",         cat:"Sniffing & Spoofing", desc:"Многоцелевой ретранслятор: связывает два потока данных, поддерживает SSL, Unix sockets, PTY.", url:"http://www.dest-unreach.org/socat/" },
+
+  // ─── Post Exploitation (ещё) ──────────────────────────────────────────────
+  { name:"scapy",         cat:"Post Exploitation", desc:"Python-библиотека крафтинга пакетов: создаёт любые сетевые пакеты для тестирования.", url:"https://scapy.net/" },
+  { name:"neo-regeorg",   cat:"Post Exploitation", desc:"Туннелирование HTTP через веб-шелл: создаёт SOCKS5-прокси через webshell на сервере.", url:"https://github.com/L-codes/Neo-reGeorg" },
+
+  // ─── Post Exploitation (Active Directory) ────────────────────────────────
+  { name:"kerbrute",      cat:"Post Exploitation", desc:"Перебор и перечисление пользователей Kerberos: username enum, password spray, bruteforce.", url:"https://github.com/ropnop/kerbrute" },
+  { name:"coercer",       cat:"Post Exploitation", desc:"Принудительная NTLM-аутентификация через уязвимые протоколы MS-RPRN, MS-EFSR для relay-атак.", url:"https://github.com/p0dalirius/Coercer" },
+  { name:"ldapdomaindump", cat:"Post Exploitation", desc:"Дампит данные Active Directory через LDAP без прав администратора: пользователи, группы, GPO.", url:"https://github.com/dirkjanm/ldapdomaindump" },
+  { name:"windapsearch",  cat:"Post Exploitation", desc:"LDAP-перечисление AD без мандатов или с ними: пользователи, компьютеры, привилегированные группы.", url:"https://github.com/ropnop/windapsearch" },
+  { name:"sharphound",    cat:"Post Exploitation", desc:"Ingestor для BloodHound: собирает данные AD через LDAP и SMB для построения графов атаки.", url:"https://github.com/BloodHoundAD/SharpHound" },
+  { name:"pkinittools",   cat:"Post Exploitation", desc:"Python-инструменты для атак PKINIT Kerberos: Shadow Credentials, PKINIT AS-REQ.", url:"https://github.com/dirkjanm/PKINITtools" },
+  { name:"getnpusers",    cat:"Post Exploitation", desc:"AS-REP Roasting: получает хеши для пользователей без Kerberos preauth для офлайн-взлома.", url:"https://github.com/SecureAuthCorp/impacket" },
+  { name:"rubeus",        cat:"Post Exploitation", desc:"C# Kerberos-тулкит: Kerberoasting, AS-REP Roasting, Pass-the-Ticket, Golden/Silver ticket.", url:"https://github.com/GhostPack/Rubeus" },
+
+  // ─── Information Gathering (сетевые утилиты Kali) ─────────────────────────
+  { name:"hcxdumptool",   cat:"Information Gathering", desc:"Захват пакетов PMKID/EAPOL с WiFi-адаптеров для последующего взлома без handshake.", url:"https://github.com/ZerBea/hcxdumptool" },
+  { name:"dnsmap",        cat:"Information Gathering", desc:"Пассивное картирование инфраструктуры через перебор поддоменов по встроенному словарю.", url:"https://github.com/resurrecting-open-source-projects/dnsmap" },
+  { name:"dirbuster",     cat:"Information Gathering", desc:"Java GUI для перебора директорий и файлов веб-сервера по словарю.", url:"https://www.owasp.org/index.php/Category:OWASP_DirBuster_Project" },
+
+  // ─── Web Application Analysis (дополнительные утилиты) ───────────────────
+  { name:"smuggler",      cat:"Web Application Analysis", desc:"Автоматически обнаруживает HTTP Request Smuggling уязвимости в прокси и серверах.", url:"https://github.com/defparam/smuggler" },
+  { name:"corsy",         cat:"Web Application Analysis", desc:"Сканирует неправильные конфигурации CORS: origin reflection, wildcard, credentials bypass.", url:"https://github.com/s0md3v/Corsy" },
+  { name:"subzy",         cat:"Web Application Analysis", desc:"Проверяет поддомены на subdomain takeover: DNS CNAME указывает на свободный сервис.", url:"https://github.com/LukaSikic/subzy" },
+  { name:"403bypass",     cat:"Web Application Analysis", desc:"Обходит 403-запреты: подбирает HTTP-заголовки и варианты URL для доступа к закрытым путям.", url:"https://github.com/iamj0ker/bypass-403" },
+  { name:"feroxbuster",   cat:"Web Application Analysis", desc:"Быстрый брутфорс директорий на Rust: рекурсивный поиск контента с фильтрацией ответов.", url:"https://github.com/epi052/feroxbuster" },
+  { name:"ffuf",          cat:"Web Application Analysis", desc:"Fast web fuzzer на Go: директории, параметры, виртуальные хосты с высокой скоростью.", url:"https://github.com/ffuf/ffuf" },
+  { name:"gobuster",      cat:"Web Application Analysis", desc:"Перебирает директории, DNS и виртуальные хосты: быстрее DirBuster, удобен в пайплайнах.", url:"https://github.com/OJ/gobuster" },
+  { name:"dirb",          cat:"Web Application Analysis", desc:"Веб-контент-сканер: рекурсивный перебор директорий и файлов по словарю.", url:"https://dirb.sourceforge.net/" },
+  { name:"dirsearch",     cat:"Web Application Analysis", desc:"Многопоточный Python-сканер директорий с расширениями, wildcard-фильтрацией и прокси.", url:"https://github.com/maurosoria/dirsearch" },
+  { name:"commix",        cat:"Web Application Analysis", desc:"Автоматизирует обнаружение и эксплуатацию command injection уязвимостей в веб-приложениях.", url:"https://github.com/commixproject/commix" },
+
+  // ─── Password Attacks (утилиты John/Hashcat) ──────────────────────────────
+  { name:"princeprocessor",cat:"Password Attacks", desc:"Реализует PRINCE-алгоритм для генерации умных кандидатов паролей через комбинирование слов.", url:"https://github.com/hashcat/princeprocessor" },
+  { name:"kwprocessor",   cat:"Password Attacks", desc:"Генератор паролей по паттернам клавиатуры: qwerty-прогоны, диагонали, зигзаги.", url:"https://github.com/hashcat/kwprocessor" },
+  { name:"mentalist",     cat:"Password Attacks", desc:"GUI-генератор словарей: строит цепочки правил мутации паролей с предпросмотром.", url:"https://github.com/sc0tfree/mentalist" },
+  { name:"wordlistctl",   cat:"Password Attacks", desc:"Управляет и загружает наборы словарей из репозиториев для атак по словарю.", url:"https://github.com/BlackArch/wordlistctl" },
+  { name:"cupp",          cat:"Password Attacks", desc:"Профилировщик паролей: генерирует персонализированные словари из данных о жертве.", url:"https://github.com/Mebus/cupp" },
+  { name:"crunch",        cat:"Password Attacks", desc:"Генерирует все комбинации и перестановки из заданного набора символов в заданном диапазоне длин.", url:"https://sourceforge.net/projects/crunch-wordlist/" },
+  { name:"cewl",          cat:"Password Attacks", desc:"Паукует веб-сайт и генерирует словарь из найденных слов с заданной минимальной длиной.", url:"https://digi.ninja/projects/cewl.php" },
+  { name:"ncrack",        cat:"Password Attacks", desc:"Высокоскоростной взломщик аутентификации: SSH, RDP, FTP, Telnet, HTTP, SMB параллельно.", url:"https://nmap.org/ncrack/" },
+  { name:"patator",       cat:"Password Attacks", desc:"Многоцелевой брутфорсер с модулями для SSH, FTP, HTTP, DNS, LDAP и многих других.", url:"https://github.com/lanjelot/patator" },
+
+  // ─── Exploitation Tools (ещё) ─────────────────────────────────────────────
+  { name:"unicorn",       cat:"Exploitation Tools", desc:"Magic Unicorn: генерирует PowerShell-атаку или шеллкод с downgrade-атакой для инъекции.", url:"https://github.com/trustedsec/unicorn" },
+  { name:"jexboss",       cat:"Exploitation Tools", desc:"Автоматически эксплуатирует JBoss AS, Jenkins, Struts2, Tomcat через открытые интерфейсы.", url:"https://github.com/joaomatosf/jexboss" },
+  { name:"htshells",      cat:"Exploitation Tools", desc:"Коллекция .htaccess-шеллов для выполнения команд через Apache-сервер.", url:"https://github.com/wireghoul/htshells" },
+  { name:"empire",        cat:"Exploitation Tools", desc:"C2-фреймворк с PowerShell и Python3 агентами: уклонение от AV, модули для AD и пивотинга.", url:"https://github.com/BC-SECURITY/Empire" },
+
+  // ─── Wireless Attacks (специализированные) ────────────────────────────────
+  { name:"pmkidcracker",  cat:"Wireless Attacks", desc:"Атакует WPA2 через PMKID без захвата полного handshake от клиента.", url:"https://github.com/n0mi1k/apkleaks" },
+  { name:"giskismet",     cat:"Wireless Attacks", desc:"Визуализирует данные Kismet в Google Earth KML для анализа покрытия беспроводных сетей.", url:"https://www.kali.org/tools/giskismet/" },
+  { name:"kismet",        cat:"Wireless Attacks", desc:"Обнаружитель беспроводных сетей, сниффер и IDS: 802.11, Bluetooth, Zigbee, BTLE.", url:"https://www.kismetwireless.net/" },
+  { name:"pyrit",         cat:"Wireless Attacks", desc:"WPA/WPA2-PSK аудит с GPU-ускорением и предвычисленными PMK для максимальной скорости взлома.", url:"https://github.com/JPaulMora/Pyrit" },
+
+  // ─── Forensics (утилиты обработки файлов) ─────────────────────────────────
+  { name:"pdf-redact-tools",cat:"Forensics", desc:"Безопасно редактирует и очищает PDF-файлы от скрытых метаданных и потенциально опасного контента.", url:"https://github.com/firstlookmedia/pdf-redact-tools" },
+  { name:"photorec",      cat:"Forensics", desc:"Восстанавливает медиафайлы с повреждённых носителей по сигнатурам форматов.", url:"https://www.cgsecurity.org/wiki/PhotoRec" },
+  { name:"pngcheck",      cat:"Forensics", desc:"Проверяет целостность PNG/JNG/MNG-файлов и отображает подробную информацию о каждом чанке.", url:"http://www.libpng.org/pub/png/apps/pngcheck.html" },
+  { name:"qpdf",          cat:"Forensics", desc:"Трансформирует PDF-файлы: снимает пароли, декомпрессирует потоки, исследует структуру.", url:"https://github.com/qpdf/qpdf" },
+  { name:"foremost",      cat:"Forensics", desc:"Карвинг файлов из образов дисков по заголовкам, хвостам и внутренним структурам форматов.", url:"https://github.com/korczis/foremost" },
+
+  // ─── Reporting Tools (ещё) ────────────────────────────────────────────────
+  { name:"cutycapt",      cat:"Reporting Tools", desc:"WebKit-скриншотер: захватывает веб-страницы в PNG, PDF или SVG для включения в отчёты.", url:"https://cutycapt.sourceforge.net/" },
+  { name:"eyewitness",    cat:"Reporting Tools", desc:"Снимает скриншоты веб-сайтов и создаёт HTML-отчёт с категоризацией по технологиям.", url:"https://github.com/FortyNorthSecurity/EyeWitness" },
+
+  // ─── Crypto & Steganography (ещё) ─────────────────────────────────────────
+  { name:"outguess",      cat:"Crypto & Steganography", desc:"Встраивает скрытые данные в статистически значимые биты изображений JPEG.", url:"https://www.kali.org/tools/outguess/" },
+  { name:"steghide",      cat:"Crypto & Steganography", desc:"Стеганография в JPEG/BMP/WAV/AU: встраивает файлы с AES-128 шифрованием и сжатием.", url:"https://steghide.sourceforge.net/" },
+
+  // ─── Social Engineering (дополнительные) ─────────────────────────────────
+  { name:"blackeye",      cat:"Social Engineering", desc:"Фишинговый набор с готовыми страницами Instagram, Google, Facebook и 32 других сервисов.", url:"https://github.com/An0nUD4Y/blackeye" },
+  { name:"socialphish",   cat:"Social Engineering", desc:"Инструмент фишинга: клонирует страницы популярных сайтов и собирает введённые учётные данные.", url:"https://github.com/xHak9x/SocialPhish" },
+  { name:"nexphisher",    cat:"Social Engineering", desc:"Продвинутый фишинговый инструмент с 30+ шаблонами страниц авторизации.", url:"https://github.com/htr-tech/nexphisher" },
+  { name:"zphisher",      cat:"Social Engineering", desc:"Автоматизированный фишинг с ngrok-туннелингом и поддержкой 30+ социальных платформ.", url:"https://github.com/htr-tech/zphisher" },
+
+  // ─── Database Assessment (ещё утилиты) ────────────────────────────────────
+  { name:"dbpwaudit",     cat:"Database Assessment", desc:"Онлайн-аудит паролей для Oracle, MySQL, MS SQL Server и DB2 через JDBC-драйверы.", url:"https://www.kali.org/tools/dbpwaudit/" },
+  { name:"sqlbrute",      cat:"Database Assessment", desc:"Брутфорс данных через слепые SQL-инъекции с поддержкой временных и булевых техник.", url:"https://www.kali.org/tools/sqlbrute/" },
+
+  // ─── Vulnerability Analysis (Cloud и современные) ─────────────────────────
+  { name:"prowler",       cat:"Vulnerability Analysis", desc:"Инструмент безопасности AWS/Azure/GCP: проверяет соответствие CIS Benchmarks и best practices.", url:"https://github.com/prowler-cloud/prowler" },
+  { name:"pacu",          cat:"Vulnerability Analysis", desc:"AWS-фреймворк эксплуатации: перечисление IAM, privilege escalation в облачных окружениях.", url:"https://github.com/RhinoSecurityLabs/pacu" },
+  { name:"scoutsuite",    cat:"Vulnerability Analysis", desc:"Многооблачный аудит безопасности AWS, Azure, GCP: 100+ правил проверки конфигурации.", url:"https://github.com/nccgroup/ScoutSuite" },
 ]
 
 // ── Категории и цвета (классы из NetScout) ────────────────────────────────
