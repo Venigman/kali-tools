@@ -1148,6 +1148,34 @@ const TOOLS = [
   // ─── Protection Tools (специализированные) ───────────────────────────────
   { name:"sslyze",        cat:"Protection Tools", desc:"Проверяет конфигурацию SSL/TLS серверов на слабые шифры и уязвимости для hardening.", url:"https://github.com/nabla-c0d3/sslyze" },
   { name:"openvas",       cat:"Protection Tools", desc:"OpenVAS: открытый сканер уязвимостей с базой 50000+ проверок для аудита инфраструктуры.", url:"https://www.openvas.org/" },
+
+  // ─── Information Gathering (финальный добор) ──────────────────────────────
+  { name:"netcat",        cat:"Information Gathering", desc:"TCP/UDP-утилита для чтения и записи в сетевые соединения, баннер-граббинг и порт-скан.", url:"https://www.kali.org/tools/netcat/" },
+  { name:"hping3",        cat:"Information Gathering", desc:"Активный сетевой инструмент: крафтинг TCP/UDP/ICMP/RAW-пакетов, traceroute, firewall testing.", url:"http://www.hping.org/" },
+  { name:"rpcinfo",       cat:"Information Gathering", desc:"Перечисляет RPC-сервисы на хосте: определяет portmapper, NFS, NIS и другие RPC-программы.", url:"https://www.kali.org/tools/rpcbind/" },
+  { name:"finger",        cat:"Information Gathering", desc:"Запрашивает данные пользователей Unix через finger-протокол: имя, shell, последний логин.", url:"https://www.kali.org/tools/finger/" },
+  { name:"xprobe2",       cat:"Information Gathering", desc:"Активный fingerprint ОС через нечёткую логику: определяет систему по аномалиям ICMP.", url:"https://www.kali.org/tools/xprobe2/" },
+  { name:"dnmap",         cat:"Information Gathering", desc:"Распределённый nmap: координирует сканирование через несколько клиентов с одного сервера.", url:"https://www.kali.org/tools/dnmap/" },
+  { name:"smbclient",     cat:"Information Gathering", desc:"FTP-подобный клиент для SMB/CIFS: листинг шар, скачивание файлов, проверка доступа.", url:"https://www.kali.org/tools/samba/" },
+
+  // ─── Exploitation Tools (ещё специализированные) ─────────────────────────
+  { name:"intersect",     cat:"Exploitation Tools", desc:"Python-постэксплуатационный фреймворк: автоматически собирает системную информацию после взлома.", url:"https://www.kali.org/tools/intersect/" },
+  { name:"u3-pwn",        cat:"Exploitation Tools", desc:"Атаки на U3 USB-устройства: автоматически устанавливает вредоносное ПО при подключении.", url:"https://www.kali.org/tools/u3-pwn/" },
+  { name:"backdoor-factory", cat:"Exploitation Tools", desc:"Патчит PE32/ELF-бинарники шеллкодом для создания бэкдоров в легитимных исполняемых файлах.", url:"https://github.com/secretsquirrel/the-backdoor-factory" },
+
+  // ─── Sniffing & Spoofing (финальный добор) ────────────────────────────────
+  { name:"netsniff-ng",   cat:"Sniffing & Spoofing", desc:"Высокопроизводительный Linux-сниффер с zero-copy: анализ трафика, pcap-запись, replay.", url:"https://netsniff-ng.org/" },
+  { name:"p0f",           cat:"Sniffing & Spoofing", desc:"Пассивный OS fingerprint: определяет ОС и браузер из трафика без отправки пакетов.", url:"https://lcamtuf.coredump.cx/p0f3/" },
+
+  // ─── Post Exploitation (специализированные) ───────────────────────────────
+  { name:"beef-xss",      cat:"Post Exploitation", desc:"Browser Exploitation Framework: управляет браузерами жертв через XSS, hook-js, модульные атаки.", url:"https://beefproject.com/" },
+  { name:"dnscat2",       cat:"Post Exploitation", desc:"C2 через DNS: зашифрованный командный туннель через DNS-запросы обходит большинство файрволов.", url:"https://github.com/iagox86/dnscat2" },
+  { name:"meterssh",      cat:"Post Exploitation", desc:"Туннелирует Meterpreter-трафик через SSH для обхода систем обнаружения.", url:"https://github.com/trustedsec/meterssh" },
+
+  // ─── Forensics (финальный добор) ──────────────────────────────────────────
+  { name:"log2timeline",  cat:"Forensics", desc:"Создаёт временную шкалу из нескольких форензических источников одновременно.", url:"https://github.com/log2timeline/plaso" },
+  { name:"mobiledit-forensics", cat:"Forensics", desc:"Извлекает данные с мобильных устройств iOS и Android для форензического анализа.", url:"https://www.mobiledit.com/forensic" },
+  { name:"ideviceinstaller",cat:"Forensics", desc:"Управляет приложениями на iOS-устройствах через libimobiledevice для форензики.", url:"https://github.com/libimobiledevice/ideviceinstaller" },
 ]
 
 // ── Категории и цвета (классы из NetScout) ────────────────────────────────
